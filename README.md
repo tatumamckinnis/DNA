@@ -29,12 +29,11 @@ The simulation coded here is a simplification of the chemical process, but provi
 
 Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can refer to sections later in this write-up. 
 
-Here are the major parts of the assignment.
-1. In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you will run the benchmarking program before you write code as part of answering questions in the analysis section.
-2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information rather than a String or StringBuilder.
-	1. You'll create an inner `Node` class with instance variables `myFirst` and `myLast` and you'll then implement all the methods in the `IDnaStrand` interface, _**testing them using supplied JUnit tests.**_ 
-	2. When you create the class and edit it so that it implements IDnaStrand, IntelliJ will fill in stub methods that you will fill in. There are two constructors and several methods. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods do. 
-3. In [Part 3](#part-3-analysis-and-more-benchmarking) Rerun the benchmarking program `DNABenchmark` with the newly coded LinkStrand class - note the efficiency and memory of the program compared to when you ran the program with StringStrand and StringBuilderStrand.
+1. In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you will run the benchmarking program using the provided starter `StringStrand` and `StringBuilderStrand` implementations of the `IDnaStrand` interface.
+2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information.
+	1. You'll create an inner `Node` class with instance variables `myFirst` and `myLast` and you'll then implement all the methods in the `IDnaStrand` interface, testing them using supplied JUnit tests. 
+	2. When you create the `LinkStrand` class and edit it so that it `implements IDnaStrand`, VS Code will give you the option to generate "stub" methods that you will fill in. There are two constructors and several methods. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods should do. 
+3. In [Part 3](#part-3-analysis-and-more-benchmarking) Rerun the benchmarking program `DNABenchmark` with the newly coded LinkStrand class - note the efficiency and memory of the program compared to when you ran the program with `StringStrand` and `StringBuilderStrand`.
 4. You'll make changes to `DNABenchmark` to run a different benchmark method provided in that class to answer more questions in the analysis.
 
 ### Git, Partners, and Submitting for P4
@@ -85,8 +84,6 @@ Partners should get used to using git pull before programming!
 
 
 ## Part 1: Running DNABenchmark, Profiling, Analysis
-<details>
-<summary>Running DNABenchmark Part 1</summary>
 
 You can do this Part 1 without writing any linked list code. We strongly suggest you do this (with your partner) before starting on the linked list, Part 2 of the assignment.
 
@@ -104,11 +101,10 @@ The `main` method in `DNABenchmark` calls the method `standardBenchmark`. Replac
 
 **Note: the strand/String used in timing experiments is stored in `private static String mySource`. The value is set in `main` and then used in the benchmarking methods.**
 
-</details>
 
 ## Part 2: Programming
-<details>
-<summary>Implement LinkStrand Class</summary>
+
+This section details how to implement the `LinkStrand` class.
 
 ### LinkStrand implements IDnaStrand
 
@@ -346,12 +342,8 @@ However, *you'll need to write code to deal with calls that aren't "in order".* 
 
 </details>
 
-</details>
-
 
 ## Part 3: Analysis and More Benchmarking
-<details>
-<summary>Analysis and Benchmarking Explained</summary>
 
 You'll need to run the `DNABenchmark` class three times calling method `standardBenchmark`: once for each implementation of the `IDnaStrand` interface: `StringStrand`, `StringBuilderStrand`, and `LinkStrand`. You did the first two runs for [Part 1](#benchmark-analysis), the last  you should complete after implementing `LinkStrand`.
 
@@ -482,7 +474,6 @@ Note that the value of `b` is half the number of calls to append since each cut 
 
 **Question 3:** Explain why the time for `LinkStrand` does not change much at all over all the runs in the benchmark program. Explain why you think memory is exhausted at the specific strand size you see in your timings -- as compared to exhaustion for `String` and `StringBuilder`.
 
-</details>
 
 ## Detailed Explanation of cutAndSplice: Time/Memory Complexity
 <details>
