@@ -153,22 +153,21 @@ This section details how to implement the `LinkStrand` class.
 
 ### LinkStrand implements IDnaStrand
 
-You will create a new class named `LinkStrand`. This class must implement the `IDnaStrand` interface as explained in some detail below. You should allow IntelliJ to fill in all the methods needed to implement the interface with stub interfaces, e.g., that return null or zero for example -- see below for how to get IntelliJ to do this.  Then you'll implement and test the methods as described here and in the section that follows on how the class works. Here's the header for the class that you'll implement:
+You will create a new class named `LinkStrand` from scratch. Start by creating a `LinkStrand.java` file in the `src` folder of the project. This class must implement the `IDnaStrand` interface as shown in the class header below:
 
 ```java 
 public class LinkStrand implements IDnaStrand
 ```
 
-IntelliJ will indicate the class won't compile with a red squiggly line under the class declaration. If you choose ALT-return or OPTION-return you'll see the menu to the right pop up. Use the default unimplemented methods that are checked, press OK, and you'll have these stub methods to implement.
+VS Code will then indicate that the code will not compile. If you select the light bulb / suggestion button as indicated in the figure below, it should give you as the first suggestion to "add unimplemented methods." This will automatically generate method stubs for all of the methods in the `IDnaStrand` interface that any implementing class must provide.
 
 <div align="center">
-  <img src="p4-figures/implement.png">
+  <img src="p4-figures/vscode_stubs.png" width="300", height="150">
 </div>
-
  
-You'll implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class except for `charAt` which is tested in the `TestIterator` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
+In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class except for `charAt` which is tested in the `TestIterator` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
 
-You should test each method as you implement it using the TestStrand JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. It's unlikely that any tests will work until you've implemented `LinkStrand.toString()`.
+You should test each method as you implement it using the `TestStrand` JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. It's unlikely that any tests will work until you've implemented `LinkStrand.toString()`.
 
 You should run the JUnit tests in both `TestStrand` and `TestIterator`. Verify that these work for `StringStrand` and `StringBuilderStrand` and then use these classes to test your `LinkStrand` implementation. 
 
@@ -274,7 +273,7 @@ The `toString` method returns the `String` representation of the entire DNA stra
 
 This method should use a standard `while` loop to visit each node in the internal linked list. The method creates and updates a single `StringBuilder` object by appending each `node.info` field to a `StringBuilder` object that's initially empty. The final return from `LinkStrand.toString` will simply be returning the result of calling `.toString()` on the `StringBuilder` object. See the `DNABenchmark.dnaFromScanner` implementation for guidance on the `StringBuilder` strand class.
 
-For more guidance on `StringBuilder`, see the Java Documentation [here](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/StringBuilder.html). 
+For more guidance on `StringBuilder`, see the [Java Documentation here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html). 
 
 You should be able to test all the methods implemented to this point using the class `TestStrand`. The testing methods in `TestStrand` rely on `.toString` being correct, so after implementing `.toString` you may find errors in your other methods as a result of testing.
 
@@ -306,6 +305,7 @@ updating  `myFirst, myLast, mySize, myAppends, myIndex, myCurrent, myLocalIndex`
 
 #### Implementing the `charAt` method
 Implement `charAt` which returns the character at a specific index. This method requires new instance variables *to meet performance characteristics.*
+
 <details>
 <summary>Details on Implementing the charAt method</summary>
 This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the index-th character is found. 
