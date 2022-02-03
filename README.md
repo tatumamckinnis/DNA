@@ -13,10 +13,8 @@ In this assignment you'll experiment with different implementations of a simulat
 
 Specifically, you will develop a `LinkStrand` class, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a String or StringBuilder (as in the provided `StringStrand` and `StringBuilderStrand` classes respectively, which provide correct but less efficient implementations of the `IDnaStrand` interface). You will benchmark and analyze the efficiency improvements of the `LinkStrand` implementation over those provided in the starter code when conducting simulations of gene splicing experiments.
 
-The expandable background section below provides additional context that is interesting, but not really needed to do the assignment. Consider it encouraged but optional reading.
-
 <details>
-<summary>Background</summary>
+<summary>Optional Historical Details</summary>
 
 [Three scientists shared the Nobel Prize](http://nobelprize.org/nobel_prizes/medicine/laureates/1978/press.html) in 1978 for the discovery of restriction enzymes. They're also an essential part of the process called [PCR polymerase chain reaction](http://en.wikipedia.org/wiki/Polymerase_chain_reaction) which is one of the most significant discoveries/inventions in chemistry and for which Kary Mullis won the Nobel Prize in 1993.
 
@@ -41,48 +39,37 @@ Here's a high-level view of the assignment. This is enough information to know w
 2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information. There are two constructors and several methods to implement. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods should do.
 3. In [Part 3](#part-3-more-benchmarking-and-analysis) You will again the benchmarking program `DNABenchmark` but now using the newly coded `LinkStrand` class - note the efficiency and memory of the program compared to when you ran the program with `StringStrand` and `StringBuilderStrand`. You will answer analysis questions about the runtime performance and memory use.
 
-### Git, Partners, and Submitting for P4
+### Git and Partners, and Submitting for P4
 
-To register your partner, request a partner, or indicate you're working alone use this form: https://do-compsci.com/201fall21-p4-woto
-You *must* complete that form, even if you're working alone.
+You must have installed all software (Java, Git, VS Code) before you can complete the project.You can find the [directions for installation here](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/installingSoftware.md). We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](https://coursework.cs.duke.edu). All code for classwork will be kept here. Git is software used for version control, and GitLab is an online repository to store code in the cloud using Git.
 
-If you're working in a group, one person will fork-and-clone from the GitLab repo. That person will add the other person/partner as a collaborator on the project. Details are provided below. For full information, see the documentation here: [https://docs.gitlab.com/ee/user/project/members/](https://docs.gitlab.com/ee/user/project/members/). 
+**[This document details the workflow](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully while working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained in Section 5.
+
+For this project (P4 DNA LinkStrand), **you are allowed to work with a partner** (that is, in a group of two). If you are working with a partner, read the details in the expandable section below on how to collaborate using Git. 
 
 <details>
-<summary>Details on Git for P4</summary>
-Git With Partners 
-Choose Settings>Members>Invite Members. Then use the autocomplete feature to invite your partner to the project. Both of you can clone and push to this project. 
+<summary>Details on Git with a Partner for P4</summary>
 
-1. First, one person should create the GitLab repository then add the partner as a maintainer to the project.
-2. Both students should clone the same repository and import it into IntelliJ.  
-3. After both students have cloned and imported, one person should create the `LinkStrand.java` class and add a comment to it with their name in a comment at the start of the file. Commit and push this change. 
-4. The other partner will then use the command line and issue a git pull request. Simply use the command-line (in the right folder/directory) and type:
+You may find it helpful to begin by reading the Working Together section of the [Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/tree/master/git) from the Duke Colab.
+
+One person should fork the starter code and then add their partner as a collaborator on the project. Choose Settings>Members>Invite Members. Then use the autocomplete feature to invite your partner to the project as a *maintainer*. Both of you can now clone and push to this project. See the [gitlab documentation here](https://docs.gitlab.com/ee/user/project/members/).
+
+Now you should be ready to clone the code to your local machines.
+
+1. Both students should clone the same repository and import it into VS Code just like previous projects.  
+2. After both students have cloned and imported, one person should create the `LinkStrand.java` class and add a comment to it with their name in a comment at the start of the file. Commit and push this change. 
+3. The other partner will then issue a git pull request. Simply use the command-line (in the same project directory where you cloned the starter code for the project) and type:
 ```bash
 git pull
 ```
-5. Reload `LinkStrand` in your IntelliJ project. You should see the modified `LinkStrand.java` file with a new comment. Add your name in a comment, then commit and push. The other person will need to issue a git pull to get that file.
+4. If the other partner now opens the project in VS Code again, they should see the modified `LinkStrand.java` file created by the first partner. 
+5. You can continue this workflow: Whenever one person finishes work on the project, they commit and push. Whenever anyone starts work on the project, they begin by downloading the current version from the shared online repository using a git pull command.
 
-As long as partners are modifying different files, this process works seamlessly. Modifying the same file can lead to issues in resolving conflicts. Git will deal with this with your help, but it's better to take turns in working on the same file, or to work on different files within the project. 
+This process works as long as only one person is editing at a time, and **you always pulls before editing** and **commit/push when finished**. If you forget to pull before editing your local code, you might end up working from an old version of the code different than what is in the shared online gitlab repository. If that happens, you may experience an error when you attempt to push your code back to the shared online repository. 
 
-Fork, clone, and import the cloned project from the file system. 
+There are many ways to resolve these conflicts. See the [working together Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/working_together.md) [branching and merging Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/branching_merging.md) from the Duke Colab for more information. 
 
-Use this URL from the course GitLab site: [https://coursework.cs.duke.edu/201fall21/p4-dnalink](https://coursework.cs.duke.edu/201fall21/p4-dnalink). Be sure to fork first (see screen shot). Then Clone using the SSH URL after using a terminal window to cd into your IntelliJ workspace. 
-
-<div align="center">
-  <img width="976" height="141" src="p4-figures/fork.png">
-</div>
-
-When you make a series of changes you want to 'save', you'll push those changes to your GitLab repository. You should do this after major changes, certainly every hour or so of coding. You'll need to use the standard Git sequence to commit and push to GitHub:
-
-```bash 
-git add .
-git commit -m 'a short description of your commit here'
-git push
-```
-
-Partners should get used to using git pull before programming!
-
-**NOTE**: if you have any concerns about using Git with a partner, please consult the [Git troubleshooting guide](https://coursework.cs.duke.edu/cs201projects/resources-201/-/blob/main/gitTroubleshooting.md) or watch [this extended tutorial from spring 2021](https://duke.zoom.us/rec/play/SaYwuDmE_e1ktnTdXyZFlUB4Je0jAp90JJsYpv6nGO_6xgn2eTFqcR9poqNQpKOqlswpyR54w5lkpw.jhA1Dob-5DIFNjdB?continueMode=true&_x_zm_rtaid=WRHafTqZSU-Bw07DppwXJg.1614437909258.5f6f5e1afb9e427d7e1e52e2574318f9&_x_zm_rhtaid=958) on setting up Git with a partner.
+Additional resources: if you have any concerns about using Git with a partner, please consult the [Git troubleshooting guide](https://coursework.cs.duke.edu/cs201projects/resources-201/-/blob/main/gitTroubleshooting.md) or watch [this extended tutorial from spring 2021](https://duke.zoom.us/rec/play/SaYwuDmE_e1ktnTdXyZFlUB4Je0jAp90JJsYpv6nGO_6xgn2eTFqcR9poqNQpKOqlswpyR54w5lkpw.jhA1Dob-5DIFNjdB?continueMode=true&_x_zm_rtaid=WRHafTqZSU-Bw07DppwXJg.1614437909258.5f6f5e1afb9e427d7e1e52e2574318f9&_x_zm_rhtaid=958) on setting up Git with a partner.
 
 </details>
 
