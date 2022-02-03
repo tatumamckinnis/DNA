@@ -4,14 +4,14 @@
 - [Background and Introduction](#project-background-and-introduction)
 - [Part 1: Running DNABenchmark, Profiling, Analysis](#part-1-running-dnabenchmark-profiling-analysis)
 - [Part 2: Programming](#part-2-programming)
-- [Part 3: Analysis and More Benchmarking](#part-3-analysis-and-more-benchmarking)
+- [Part 3: More Benchmarking and Analysis](#part-3-more-benchmarking-and-analysis)
 - [Submitting, Reflect, and Grading](#submitting-reflect-and-grading)
 
 ## Project Background and Introduction
 
 In this assignment you'll experiment with different implementations of a simulated [restriction enzyme cutting](https://en.wikipedia.org/wiki/Restriction_enzyme) (or cleaving) of a DNA molecule. In this context, you will study the application of the linked list data structure toward a real world problem in scientific computing.
 
-Specifically, you will develop a `LinkStrand` class, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a String or StringBuilder (as in the provided `StringStrand` and `StringBuilderStrand` classes respectively, which provide correct but less efficient implementations of the `IDnaStrand` interface). You will benchmark and analyze the efficiency improvements of the `LinkStrand` implementation over those provided in the starter code.
+Specifically, you will develop a `LinkStrand` class, an implementation of the `IDnaStrand` interface that uses an internal linked list to model recombinant DNA. Your implementation will be much more efficient for modeling DNA splicing operations than using a String or StringBuilder (as in the provided `StringStrand` and `StringBuilderStrand` classes respectively, which provide correct but less efficient implementations of the `IDnaStrand` interface). You will benchmark and analyze the efficiency improvements of the `LinkStrand` implementation over those provided in the starter code when conducting simulations of gene splicing experiments.
 
 The expandable background section below provides additional context that is interesting, but not really needed to do the assignment. Consider it encouraged but optional reading.
 
@@ -25,16 +25,21 @@ Kary Mullis, the inventor of PCR, is an interesting character. To see more about
 The simulation coded here is a simplification of the chemical process, but provides an example of the utility of linked lists as a data structure for certain algorithmic processes. 
 </details>
 
+### DNA strands and the Starter Code
+
+For the purposes of this project, DNA is represented as a sequence of characters, specifically `a`, `c`, `g`, and `t` for the four chemical bases of DNA. There can be a *lot* of these bases in a DNA sequence, so efficiency matters when dealing with DNA data computationally. This project includes a `data/` folder containing two data files: `ecoli.txt` and `ecoli_small.txt`, which represent the genetic information of ecoli - there are over 4.6 million bases in the full sequence in `ecoli.txt`. The `DNABenchmark` program provided in the starter code simulates a gene splicing experiment on a DNA sequence, and we will use the `ecoli.txt` data for our simulations.
+
+You should read the comments in the `IDnaStrand` interface to understand what functionality implementations of that interface should provide with respect to manipulating DNA data. You will note that some methods in the interface have a `default` implementation provided, but most do not -- these are the methods you will be implementing. 
+
+Two relatively straightforward implementations of the `IDnaStrand` interface are provided in the starter code. `StringStrand` represents a DNA sequence as a simple String. `StringBuilderStrand` represents a DNA sequence as a  [`StringBuilder`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html). You can look at these two classese to see simple and correct (but not necessarily efficient) implementations of the functionality specified in the `IDnaStrand` interface.
+
 ### Overview: What to Do
 
 Here's a high-level view of the assignment. This is enough information to know what to do, but not necessarily how to do it. For details, you can refer to sections later in this write-up. 
 
 1. In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you will run the benchmarking program using the provided starter `StringStrand` and `StringBuilderStrand` implementations of the `IDnaStrand` interface.
-2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information.
-	1. You'll create an inner `Node` class with instance variables `myFirst` and `myLast` and you'll then implement all the methods in the `IDnaStrand` interface, testing them using supplied JUnit tests. 
-	2. When you create the `LinkStrand` class and edit it so that it `implements IDnaStrand`, VS Code will give you the option to generate "stub" methods that you will fill in. There are two constructors and several methods. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods should do. 
-3. In [Part 3](#part-3-analysis-and-more-benchmarking) Rerun the benchmarking program `DNABenchmark` with the newly coded LinkStrand class - note the efficiency and memory of the program compared to when you ran the program with `StringStrand` and `StringBuilderStrand`.
-4. You'll make changes to `DNABenchmark` to run a different benchmark method provided in that class to answer more questions in the analysis.
+2. In [Part 2](#part-2-programming) You will create a new class `LinkStrand` that implements the `IDnaStrand` interface. It will utilize a singly linked-list to store the strand information. There are two constructors and several methods to implement. You should read the comments in the `IDnaStrand` interface and use the existing implementations `StringStrand` and `StringBuilderStrand` to understand what these methods should do.
+3. In [Part 3](#part-3-more-benchmarking-and-analysis) You will again the benchmarking program `DNABenchmark` but now using the newly coded `LinkStrand` class - note the efficiency and memory of the program compared to when you ran the program with `StringStrand` and `StringBuilderStrand`. You will answer analysis questions about the runtime performance and memory use.
 
 ### Git, Partners, and Submitting for P4
 
@@ -343,7 +348,7 @@ However, *you'll need to write code to deal with calls that aren't "in order".* 
 </details>
 
 
-## Part 3: Analysis and More Benchmarking
+## Part 3: More Benchmarking and Analysis
 
 You'll need to run the `DNABenchmark` class three times calling method `standardBenchmark`: once for each implementation of the `IDnaStrand` interface: `StringStrand`, `StringBuilderStrand`, and `LinkStrand`. You did the first two runs for [Part 1](#benchmark-analysis), the last  you should complete after implementing `LinkStrand`.
 
