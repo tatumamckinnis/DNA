@@ -89,7 +89,7 @@ You can do this Part 1 without writing any linked list code. We strongly suggest
 
 ### `cutAndSplice` Simulation Complexity with `StringStrand` an `StringBuilderStrand`
 
-The `main` method of `DNABenchmark` simulates a DNA splicing experiment represented by the `cutAndSplice` method. The expandable section below describes what this method simulates and how to reason about its complexity using the provided starter implementations `StringStrand` and `StringBuilderStrand`.
+The `main` method of `DNABenchmark` simulates a DNA splicing experiment represented by the `cutAndSplice` method (implemented in `IDnaStrand` with complexity that depends on which implementation of the interface is being used). The expandable section below describes what this method simulates and how to reason about its complexity using the provided starter implementations `StringStrand` and `StringBuilderStrand`.
 
 <details>
 <summary>Complexity of cutAndSplice</summary>
@@ -128,14 +128,129 @@ This is (1 + 2 + .. + b)S which is O(b<sup>2</sup>S). Note that if we use `Strin
 
 You'll need to run the `main` method of the `DNABenchmark` four times in total, once for each implementation of the `IDnaStrand` interface you're given in the starter code: `StringStrand` and `StringBuilderStrand`, and once using each of the two provided benchmarking methods `standardBenchmark` and `newBenchmark`. Running the program will open a graphical file selector interface: Select the `ecoli.txt` file inside of the `data` folder. Make sure to save your results for answering analysis questions later.
 
-You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file; you can change which benchmark to run by changing the method called in the `main` method. Expand below for the details. 
+You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file; you can change which benchmark to run by changing the method called in the `main` method. Note that the **`StringStrand` class will take a very, very, very long time (several minutes) to run!** If you wish, you can terminate those runs early (after you have several rows of results) by pressing the red stop square in VS Code. Expand below for the details and example output. 
 
 <details>
 <summary>Details on Benchmarking with standardBenchmark</summary>
 
 By default, the `main` method of `DNABenchmark` uses the `standardBenchmark` method, also provided in `DNABenchmark`. The method simulates a DNA splicing experiment with a DNA strand with a constant number `b` of breaks (occurrences of restriction enzymes) but with an increasingly larger `splicee` (the DNA sequence copied at each restriction enzyme). 
 
-The benchmark runs until memory is exhausted.  Example results are shown in the [Part 3](#part-3-more-benchmarking-and-analysis) section from an instructor/TA laptop; your results will likely differ slightly and may run out of memory at a different point, but should show a similar overall trend. Note that the `StringStrand` class will take a *very, very, very long time to run!* The benchmark code runs two experiments to average the results, so it will take longer than the reported averages.
+The `standardBenchmark` runs until memory is exhausted.  Example results are shown below from an instructor/TA laptop; your results will likely differ slightly and may run out of memory at a different point, but should show a similar overall trend. The benchmark code runs two experiments to average the results, so it will take longer than the reported averages.
+
+<details>
+<summary>StringStrand standardBenchmark Example Results</summary>
+
+```
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class	                splicee	      recomb	time	appends
+-----
+StringStra:	            256	      4,800,471	0.429	1290
+StringStra:	            512	      4,965,591	0.446	1290
+StringStra:	          1,024	      5,295,831	0.481	1290
+StringStra:	          2,048	      5,956,311	0.535	1290
+StringStra:	          4,096	      7,277,271	0.659	1290
+StringStra:	          8,192	      9,919,191	1.080	1290
+StringStra:	         16,384	     15,203,031	1.603	1290
+StringStra:	         32,768	     25,770,711	2.636	1290
+StringStra:	         65,536	     46,906,071	4.707	1290
+StringStra:	        131,072	     89,176,791	9.468	1290
+StringStra:	        262,144	    173,718,231	17.172	1290
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.Arrays.copyOf(Arrays.java:3537)
+	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228)
+	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582)
+	at java.base/java.lang.StringBuilder.append(StringBuilder.java:175)
+	at StringStrand.append(StringStrand.java:70)
+	at IDnaStrand.cutAndSplice(IDnaStrand.java:38)
+	at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:72)
+	at DNABenchmark.standardBenchmark(DNABenchmark.java:116)
+	at DNABenchmark.main(DNABenchmark.java:163)
+```
+
+</details>
+
+<details>
+<summary>StringStrand newBenchmark Example Results</summary>
+
+```
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class	                splicee	      recomb	time	appends
+-----
+StringStra:	          4,096	      7,277,271	0.647	1290
+StringStra:	          4,096	     14,554,542	2.757	2580
+StringStra:	          4,096	     21,831,813	6.293	3870
+StringStra:	          4,096	     29,109,084	11.742	5160
+StringStra:	          4,096	     36,386,355	18.227	6450
+StringStra:	          4,096	     43,663,626	26.720	7740
+StringStra:	          4,096	     50,940,897	39.016	9030
+StringStra:	          4,096	     58,218,168	46.087	10320
+StringStra:	          4,096	     65,495,439	58.608	11610
+StringStra:	          4,096	     72,772,710	77.266	12900
+```
+
+</details>
+
+
+<details>
+<summary>StringBuilderStrand standardBenchmark Example Results</summary>
+
+```
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class	                splicee	      recomb	time	appends
+-----
+StringBuil:	            256	      4,800,471	0.016	1290
+StringBuil:	            512	      4,965,591	0.015	1290
+StringBuil:	          1,024	      5,295,831	0.013	1290
+StringBuil:	          2,048	      5,956,311	0.013	1290
+StringBuil:	          4,096	      7,277,271	0.012	1290
+StringBuil:	          8,192	      9,919,191	0.013	1290
+StringBuil:	         16,384	     15,203,031	0.014	1290
+StringBuil:	         32,768	     25,770,711	0.017	1290
+StringBuil:	         65,536	     46,906,071	0.023	1290
+StringBuil:	        131,072	     89,176,791	0.040	1290
+StringBuil:	        262,144	    173,718,231	0.067	1290
+StringBuil:	        524,288	    342,801,111	0.173	1290
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.Arrays.copyOf(Arrays.java:3537)
+	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228)
+	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582)
+	at java.base/java.lang.StringBuilder.append(StringBuilder.java:175)
+	at StringBuilderStrand.append(StringBuilderStrand.java:70)
+	at IDnaStrand.cutAndSplice(IDnaStrand.java:42)
+	at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:72)
+	at DNABenchmark.standardBenchmark(DNABenchmark.java:116)
+	at DNABenchmark.main(DNABenchmark.java:163)
+```
+
+</details>
+
+<details>
+<summary>StringBuilderStrand newBenchmark Example Results</summary>
+
+```
+cutting at enzyme gaattc
+-----
+Class	                splicee	      recomb	time	appends
+-----
+StringBuil:	          4,096	      7,277,271	0.017	1290
+StringBuil:	          4,096	     14,554,542	0.032	2580
+StringBuil:	          4,096	     21,831,813	0.040	3870
+StringBuil:	          4,096	     29,109,084	0.052	5160
+StringBuil:	          4,096	     36,386,355	0.079	6450
+StringBuil:	          4,096	     43,663,626	0.077	7740
+StringBuil:	          4,096	     50,940,897	0.092	9030
+StringBuil:	          4,096	     58,218,168	0.102	10320
+StringBuil:	          4,096	     65,495,439	0.113	11610
+StringBuil:	          4,096	     72,772,710	0.141	12900
+```
+
+</details>
 
 </details>
 
@@ -390,171 +505,24 @@ However, *you'll need to write code to deal with calls that aren't "in order".* 
 
 ## Part 3: More Benchmarking and Analysis
 
-You'll need to run the `DNABenchmark` class three times calling method `standardBenchmark`: once for each implementation of the `IDnaStrand` interface: `StringStrand`, `StringBuilderStrand`, and `LinkStrand`. You did the first two runs for [Part 1](#benchmark-analysis), the last  you should complete after implementing `LinkStrand`.
+In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you benchmarked the `StringStrand` and `StringBuilderStrand` implementations of the `IDnaStrand` interface using the `standardBenchmark` and `newBenchmark` methods within the `main` method of `DNABenchmark`. Review the details there for how to run these benchmarks and what they mean.
 
+Now that you have completed your implementation of `LinkStrand`, you will need to run the `main` method of `DNABenchmark` two additional times: once using `standardBenchmark` and once using `newBenchmark`. Again use the `ecoli.txt` file. Remember to save your results. Once you finish, you should have a total of 6 benchmark results: one for each combination of the implementations (`StringStrand`, `StringBuilderStrand`, and `LinkStrand`) and benchmarks (`standardBenchmark` and `newBenchmark`).
 
-### Benchmark results for all Strands
-Run `DNABenchmark` with  `strandType` to `"LinkStrand"` after the `LinkStrand` class has been tested. Note that this takes just seconds to run, and strand/splicee sizes are significantly larger than with the other `IDnaStrand` types. 
-
-Results for all three strand types are shown below as generated in September 2021 on ola's laptop. These are different from results in the past and will be different from results in the future and on your laptop/machine. These are run on the large ecoli.txt file.
+Recall that `DNABenchmark` simulates a splicing experiment with DNA data. The complexity of the `StringStrand` and `StringBuilderStrand` implementations was discussed earlier in [Part 1](#part-1-running-dnabenchmark-profiling-analysis). Expand below for some discussion of the complexity using the `LinkStrand` implementation.
 
 <details>
-<summary>StringStrand Benchmark Results</summary>
+<summary> Complexity of cutAndSplice with LinkStrand</summary>
 
-```
-dna length = 4,639,221
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringStran:	            256	      4,800,471	0.568	1290
-StringStran:	            512	      4,965,591	0.583	1290
-StringStran:	          1,024	      5,295,831	0.611	1290
-StringStran:	          2,048	      5,956,311	0.681	1290
-StringStran:	          4,096	      7,277,271	0.826	1290
-StringStran:	          8,192	      9,919,191	1.123	1290
-StringStran:	         16,384	     15,203,031	1.786	1290
-StringStran:	         32,768	     25,770,711	3.025	1290
-StringStran:	         65,536	     46,906,071	5.491	1290
-StringStran:	        131,072	     89,176,791	10.320	1290
-StringStran:	        262,144	    173,718,231	19.282	1290
-StringStran:	        524,288	    342,801,111	36.965	1290
-StringStran:	      1,048,576	    680,966,871	70.573	1290
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-	at java.base/jdk.internal.misc.Unsafe.allocateUninitializedArray(Unsafe.java:1387)
-	at java.base/java.lang.StringConcatHelper.newArray(StringConcatHelper.java:458)
-	at java.base/java.lang.StringConcatHelper.simpleConcat(StringConcatHelper.java:423)
-	at java.base/java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(DirectMethodHandle$Holder)
-	at java.base/java.lang.invoke.DelegatingMethodHandle$Holder.reinvoke_L(DelegatingMethodHandle$Holder)
-	at java.base/java.lang.invoke.Invokers$Holder.linkToTargetMethod(Invokers$Holder)
-	at StringStrand.append(StringStrand.java:70)
-```
-
-</details>
-
-<details>
-<summary>StringBuilderStrand Benchmark Results</summary>
-
-```
-dna length = 4,639,221
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringBuild:	            256	      4,800,471	0.030	1290
-StringBuild:	            512	      4,965,591	0.024	1290
-StringBuild:	          1,024	      5,295,831	0.007	1290
-StringBuild:	          2,048	      5,956,311	0.006	1290
-StringBuild:	          4,096	      7,277,271	0.010	1290
-StringBuild:	          8,192	      9,919,191	0.007	1290
-StringBuild:	         16,384	     15,203,031	0.014	1290
-StringBuild:	         32,768	     25,770,711	0.018	1290
-StringBuild:	         65,536	     46,906,071	0.037	1290
-StringBuild:	        131,072	     89,176,791	0.069	1290
-StringBuild:	        262,144	    173,718,231	0.152	1290
-StringBuild:	        524,288	    342,801,111	0.295	1290
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-	at java.base/java.util.Arrays.copyOf(Arrays.java:3536)
-	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:227)
-	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:593)
-	at java.base/java.lang.StringBuilder.append(StringBuilder.java:173)
-	at StringBuilderStrand.append(StringBuilderStrand.java:70)
-	at IDnaStrand.cutAndSplice(IDnaStrand.java:42)
-```
-
-</details>
-
-<details>
-<summary>LinkStrand Benchmark Results</summary>
-
-(These results are from 2020, not 2021 as the above runs are.)
-
-```
-dna length = 4,639,221
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-LinkStrand:	            256	      4,800,471	0.031	1290
-LinkStrand:	            512	      4,965,591	0.031	1290
-LinkStrand:	          1,024	      5,295,831	0.029	1290
-LinkStrand:	          2,048	      5,956,311	0.024	1290
-LinkStrand:	          4,096	      7,277,271	0.025	1290
-LinkStrand:	          8,192	      9,919,191	0.026	1290
-LinkStrand:	         16,384	     15,203,031	0.029	1290
-LinkStrand:	         32,768	     25,770,711	0.027	1290
-LinkStrand:	         65,536	     46,906,071	0.005	1290
-LinkStrand:	        131,072	     89,176,791	0.004	1290
-LinkStrand:	        262,144	    173,718,231	0.004	1290
-LinkStrand:	        524,288	    342,801,111	0.005	1290
-LinkStrand:	      1,048,576	    680,966,871	0.006	1290
-LinkStrand:	      2,097,152	  1,357,298,391	0.004	1290
-LinkStrand:	      4,194,304	  2,709,961,431	0.008	1290
-LinkStrand:	      8,388,608	  5,415,287,511	0.006	1290
-LinkStrand:	     16,777,216	 10,825,939,671	0.013	1290
-LinkStrand:	     33,554,432	 21,647,243,991	0.007	1290
-LinkStrand:	     67,108,864	 43,289,852,631	0.006	1290
-LinkStrand:	    134,217,728	 86,575,069,911	0.008	1290
-LinkStrand:	    268,435,456	173,145,504,471	0.007	1290
-LinkStrand:	    536,870,912	346,286,373,591	0.019	1290
-LinkStrand:	  1,073,741,824	692,568,111,831	0.047	1290
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-	at java.base/java.util.Arrays.copyOf(Arrays.java:3536)
-	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:227)
-	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:593)
-	at java.base/java.lang.StringBuilder.append(StringBuilder.java:173)
-	at DNABenchmark.main(DNABenchmark.java:109)
-```
-</details>
-
-### Analysis Questions
-
-Change the method being called in `DNABenchmark.main` from `standardBenchmark` to `newBenchmark`. The purpose of your modifications are to answer the two questions here. **Include your answers in the PDF you submit to the analysis assignment for P4 in Gradescope.**
-
-**Question 1:** are the benchmark timings for `StringStrand` consistent with the explanation below that the time to execute `cutAndSplice` is $O(b^2S)$ ? 
-
-Note that the value of `b` is half the number of calls to append since each cut (except the first) is modeled by two calls of `append` in the method `cutAndSplice` -- see the code. This means that $b^2$ will be constant in the benchmark run, but $S$ will vary.
-
-**Quesiton 2:** are the benchmark timings for `StringBuilderStrand` consistent with the explanation below that the time to execute `cutAndSplice` is $O(bS)$.
-
-**Question 3:** Explain why the time for `LinkStrand` does not change much at all over all the runs in the benchmark program. Explain why you think memory is exhausted at the specific strand size you see in your timings -- as compared to exhaustion for `String` and `StringBuilder`.
-
-
-## Detailed Explanation of cutAndSplice: Time/Memory Complexity
-<details>
-<summary>Complexity of cutAndSplice</summary>
-
-The method `cutAndSplice` is not a mutator. It starts with a strand of DNA and creates a new strand by finding each and every occurrence of a restriction enzyme like `“gaattc”` and replacing this enzyme by a specified splicee -- another strand of DNA. If `dna` represents the strand `"cgatcctagatcgg"` then the call 
+Recall our earlier example: If `dna` represents the strand `"cgatcctagatcgg"` then the call 
 
 ```java
 dna.cutAndSplice("gat", "gggtttaaa")
 ```
 
-would result in returning a new strand of DNA in which each occurrence of the enzyme/strand `"gat"` in the object `dna` is replaced by the splice, `"gggtttaaa"` -- as shown in the diagram below where the original strand is shown first, with the enzyme `"gat"` shaded in blue. A new strand of DNA is created and returned in which each occurrence of the enzyme `"gat"` is replaced by the splicee `"gggtttaaa"` as shown below. This diagram illustrates how `cutAndSplice` works with both `StringStrand` and `StringBuilderStrand`. Each is a strand of 14 characters in which the restriction enzyme `"gat"` occurs twice, is replaced by `"gggtttaaa"`, resulting in creating and returning a new strand that contains 26 characters.
+would result in returning a new strand of DNA in which each occurrence of the enzyme/strand `"gat"` in the object `dna` is replaced by the splice, `"gggtttaaa"`. 
 
-<div align="center">
-  <img src="p4-figures/splice.png">
-</div>
-
-If the original strand has length N, then the new strand has N + b(S-E) characters where b is the number of breaks, or occurrences of the enzyme, S is the length of the splicee and E is the length of the enzyme. In the diagram above we have 14 + 2(9-3) which is 26. If we assume the splicee is large, as it will be when benchmarking, we can ignore E and this becomes N + bS. 
-
-This expression represents the memory used for the last strand created, not the total memory used (see below). The runtime will depend on how long it takes to concatenate two character-sequences. Concatenating two String objects requires creating a new String, so the time to concatenate two strings of length A and B is A + B. For `StringBuilder` objects, the time to append a String of length B to a `StringBuilder` of length A is just B, since the `StringBuilder` is altered so it has length A + B by simply appending B characters. If we append a character sequence of length S and we do this b times, then if we start with an empty strand (which isn't the case, because the original strand of DNA is added to via the `cutAndSplice` method) then we'd have the following sequence of b string concatenations using `StringStrand`.
-
-S
-
-S + S
-
-S + S + S
-
-…
-
-S + … + S (b times) for the last concatenation
-
-This is (1 + 2 + .. + b)S which is O(b<sup>2</sup>S). Note that if we use `StringBuilderStrand` objects we'd simply append S a total of b times for an O(bS) runtime for creating the new strand.  Of course, searching for the b breaks requires O(N) time for an N-character strand.
-
-### LinkStrand Time/Memory
-
-For the same cut/splice diagrammed above, the `LinkStrand` result is diagrammed below.
+For this example, the `LinkStrand` result is diagrammed below.
 
 <div align="center">
   <img src="p4-figures/link-cutsplice.png">
@@ -564,11 +532,25 @@ Each time the original strand, a single string, is cut/spliced a new node is cre
 
 </details>
 
-## Submitting, Reflect, and Grading 
-<details>
-<summary>Submit/Reflect/Grading</summary>
+### Analysis Questions
 
-### Submitting 
+Once you have completed benchmarking, answer the following analysis questions. **Include your answers in the PDF you submit to the analysis assignment for P4 in Gradescope.** The first two questions only use `StringStrand` and `StringBuilderStrand` as provided in the starter code, so you can answer these even if you are unable to complete the `LinkStrand` implementation.
+
+For all of the following questions, b is the number of breaks, or occurrences of the restriction enzyme, and S is the length of the splicee replacing each restriction enzyme. b is half the number of calls to append (shown in the benchmark results) since each cut (except the first) is modeled by two calls of `append` in the method `cutAndSplice` -- see the code. S is shown directly in the splicee column of the benchmark results. Keep in mind that timings with larger values of b and S may be more reliable indicators of the asymptotic big O complexity of the code.
+
+**Question 1:** Report your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation. Do the benchmark timings support the hypothesis that the runtime complexity of `cutAndSplice` when using `StringStrand` is O(b^2 S)? Explain your answer. Be specific and refer to your data.
+
+**Question 2:** Report your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation. Do the benchmark timings support the hypothesis that the runtime complexity of `cutAndSplice` when using `StringBuilderStrand` is O(bS)? Explain your answer. Be specific and refer to your data.
+
+**Question 3:** Based on the discussion of complexity in this writeup and the implementations of `cutAndSplice` and `LinkStrand`, what should the big O runtime complexity of `cutAndSplice` using `LinkStrand` be in terms of `b` and `S`? Explain your answer, referencing the implementation of `LinkStrand`.
+
+**Question 4:** Report your `standardBenchmark` and `newBenchmark` results using the `LinkStrand` implementation. Do the benchmark timings support your hypothesis about the runtime complexity of `cutAndSplice` when using `LinkStrand` from the previous question? Explain your answer. Be specific and refer to your data.
+
+**Question 5:** The `standardBenchmark` runs until it runs out of memory. Which of the three implementations (`StringStrand`, `StringBuilderStrand`, or `LinkStrand`) was able to scale to the largest size splicee (the value of S) before running out of memory in the `standardBenchmark`? Explain why this class was more memory efficient, referencing the implementation. 
+
+
+## Submitting, Reflect, and Grading 
+
 
 You'll submit the code to Gradescope after pushing your program to GitLab. This is a partner/team project in Gradescope, so one person will be able to add the other as partner if you're working together. Only one person a group submits, not both.
 
@@ -597,5 +579,3 @@ We will map total points you earn to scores as follows. For example, 25 is an A-
 - 19-24:  B
 - 13-18:  C
 - 8-12:  D
-
-</details>
