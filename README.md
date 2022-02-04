@@ -551,31 +551,17 @@ For all of the following questions, b is the number of breaks, or occurrences of
 
 ## Submitting, Reflect, and Grading 
 
+Push your code to Git. Do this often. Once you have run and tested your completed program locally:
 
-You'll submit the code to Gradescope after pushing your program to GitLab. This is a partner/team project in Gradescope, so one person will be able to add the other as partner if you're working together. Only one person a group submits, not both.
+1. Submit your code on gradescope to the autograder.
+2. Submit a PDF to Gradescope in the separate P3: Analysis assignment.
+3. Complete the [reflect form linked here](TODO).
 
-Refer to [this document](https://docs.google.com/document/d/1L_zqiecoK6GXKyaW1cSE-msE1C7QJYhcz7FRKusmjik/edit?usp=sharing) for submitting to Gradescope with a partner. 
+If you worked with a partner, you and your partner will submit **together for the code and analysis** but **separately for the reflect.** Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
 
-
-### Reflect 
-
-You can access the reflect form here [https://do-compsci.com/201fall21-p4-reflect](https://do-compsci.com/201fall21-p4-reflect).
-
-You should NOT complete the reflect form until you're done with all  of the coding portion of the assignment. Since you may uncover bugs from the autograder, you should wait until you've completed debugging and coding before completing the reflect form. *EACH person in a group should submit a reflect form, NOT one per group.*
-
-
-### Grading
-
+For this project, the grading will be:
 
 | Points | Grading Criteria |
 | ------ | ------ |
-| 16 | Code for LinkStrand. This includes 4 for correct and efficient implementation of .charAt method, as well as 2 for API consistency. |
-| 10 | Analysis questions answered. UTAs will grade and comment on this.  |
-| 3 | Reflect form |
-| 1 | Partner/solo/woto form|
-
-We will map total points you earn to scores as follows. For example, 25 is an A- and 30 is an A+.
-- 25-30:  A
-- 19-24:  B
-- 13-18:  C
-- 8-12:  D
+| 16 | Code for LinkStrand. Correctness, efficiency of `.charAt`, specification conformance. Autograded. |
+| 6 | Analysis and reflect. Teaching assistants will grade and comment on this.  |
