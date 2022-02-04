@@ -320,10 +320,10 @@ private int myLocalIndex;
 3. `mySize` represents the total number of characters stored in all nodes together.
 4. `myAppends` is the number of times that the append method has been called. It would be useful to think of this as one less than the number of nodes in the linked list.
 
-The following instance variables will be updated in charAt:
-1. myIndex tracks the last character we accessed with the charAt method. Initialize this as 0.
-2. myCurrent tracks the last node holding the character at position myIndex. Initialize this as myFirst.
-3. myLocalIndex tracks the last character we accessed within the Node. Initialize this as 0.
+The following instance variables will be updated in `charAt()`:
+1. `myIndex` tracks the last character we accessed with the `charAt()` method. Initialize this as `0`.
+2. `myCurrent` tracks the last node holding the character at position `myIndex`. Initialize this as `myFirst`.
+3. `myLocalIndex` tracks the last character we accessed within the `Node`. Initialize `this` as `0`.
 
 Initially, when the `LinkStrand("cgatt...")` constructor is called  (though the `String` parameter can be any string) there will be a single `Node` in the linked list that represents the DNA strand `"cgatt…"`. (The only way to have more than one node in a `LinkStrand` internal linked-list is by calling `.append`.)
 
@@ -384,6 +384,7 @@ Implement `toString`. This returns the `String` representation of the `LinkStran
 
 <details>
 <summary>Details on Implementing the toString Method</summary>
+
 The `toString` method returns the `String` representation of the entire DNA strand. Conceptually this is a concatenation of the `String` stored in each node.
 
 This method should use a standard `while` loop to visit each node in the internal linked list. The method creates and updates a single `StringBuilder` object by appending each `node.info` field to a `StringBuilder` object that's initially empty. The final return from `LinkStrand.toString` will simply be returning the result of calling `.toString()` on the `StringBuilder` object. See the `DNABenchmark.dnaFromScanner` implementation for guidance on the `StringBuilder` strand class.
@@ -399,6 +400,7 @@ Implement `reverse` to return a new `LinkStrand` object that's the reverse of th
 
 <details>
 <summary>Details on Implementing the reverse Method</summary>
+
 This method creates a new `LinkStrand` object that is the reverse of the object on which it's called. The reverse of `"cgatccgg"` is `"ggcctagc"`. This method returns a new strand; it does not alter the strand on which it's called, i.e., it's not a mutator. 
 
 Note: you must create `N` new nodes in reversing a `LinkStrand` object with `N` nodes. If you do not, you are likely mutating/changing the `LinkStrand` being reversed.
@@ -423,6 +425,7 @@ Implement `charAt` which returns the character at a specific index. This method 
 
 <details>
 <summary>Details on Implementing the charAt method</summary>
+
 This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the index-th character is found. 
 
 For full credit (and to pass the timing tests in `TestIterator`) you'll need to maintain state so that after a call of `charAt(k)` the call of `charAt(k+1)` is an $O(1)$ operation. This will make the loop below $O(N)$ for an `N` character strand.
