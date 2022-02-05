@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 
 import java.time.Duration;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Class for running JUNit tests with different implementations of IDnaStrand.
@@ -47,6 +48,23 @@ public class TestStrand {
 			});
 			assertEquals(s.length(), strand.size(),"This test checks if .size() returns the correct value"
 					+ " for basic cases. Your code did not return the correct .size() for strand " + s);
+		}
+	}
+
+	@Test
+	public void testRandomIndexes() {
+		int NUM_NODES = 20000;
+		Random rand = new Random(12356);
+		char[] arr = {'c','g','a','t'};
+		IDnaStrand ourStrand = getNewStrand("cgat");
+		for(int k=0; k < NUM_NODES; k++){
+			ourStrand.append("cgat");
+		}
+		
+		for(int k=0; k < 30; k++) {
+			int index = rand.nextInt((int)ourStrand.size());
+			char ch = ourStrand.charAt(index);
+			assertTrue(ch == arr[index % 4],k+"-th index is "+index);
 		}
 	}
 

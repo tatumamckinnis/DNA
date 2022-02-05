@@ -9,6 +9,11 @@ import java.util.*;
  *
  */
 public class TestIterator {
+
+	//This testbed is currently under renovation. Please use TestStrand to test all methods in your code!
+
+
+	/*
 	private static IDnaStrand ourStrand;
 	private static boolean isInitialized = false;
 	private static final int NUM_NODES = 20000;
@@ -84,4 +89,5 @@ public class TestIterator {
 
 		}
 	}
+	*/
 }
