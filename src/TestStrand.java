@@ -318,4 +318,23 @@ public class TestStrand {
 		assertFalse(itc.hasNext(),"hasNext() returned true when it should be false, after iterating " +
 				"through the entire strand. This is typically due to errors with myIndex.");
 	}
+
+	/**
+	 * Checks if index out of bounds exception error is thrown for charAt(-1) call
+	 * If you fail this type, make sure you're throwing an IndexOutOfBoundsException if
+	 * index is outside of the range of characters in LinkStrand.
+	 */
+	@Test
+	public void testCharAtMinus1() {
+		IDnaStrand test = getNewStrand(strs[0]);
+		try{
+			test.charAt(-1);
+		}
+		catch (Exception e){
+			System.out.println("wu");
+			assertTrue(e instanceof IndexOutOfBoundsException && !(e instanceof StringIndexOutOfBoundsException));
+		}
+	}
+
+
 }
