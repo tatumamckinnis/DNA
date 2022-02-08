@@ -280,7 +280,7 @@ VS Code will then indicate that the code will not compile. If you select the lig
   <img src="p4-figures/vscode_stubs.png" width="300", height="150">
 </div>
  
-In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class except for `charAt` which is tested in the `TestIterator` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
+In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
 
 You should test each method as you implement it using the `TestStrand` JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. It's unlikely that any tests will work until you've implemented `LinkStrand.toString()`.
 
@@ -428,7 +428,7 @@ Implement `charAt` which returns the character at a specific index. This method 
 
 This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the index-th character is found. 
 
-For full credit (and to pass the timing tests in `TestIterator`) you'll need to maintain state so that after a call of `charAt(k)` the call of `charAt(k+1)` is an $O(1)$ operation. This will make the loop below $O(N)$ for an `N` character strand.
+For full credit you'll need to maintain state so that after a call of `charAt(k)` the call of `charAt(k+1)` is an $O(1)$ operation. This will make the loop below $O(N)$ for an `N` character strand.
 
 ##### Basic, Correct but Inefficient Implementation of charAt
 First we'll show an inefficient implementation of the charAt method --- a method to find a character at a specific index in a linked list of strings. Your code will need to traverse the linked list counting characters. The code below illustrates how to do this. It doesn't check to see if parameter index is valid, but it passes the JUnit tests for correctness.
@@ -450,7 +450,7 @@ public int charAt(int index) {
 }
 ```
 
-This code will pass correctness tests, e.g., in `TestIterator`. However, it's not efficient since it starts at the beginning of the linked list for each call. You should be sure you understand how local variables `count` and `dex` are used in the code above before trying to make the code more efficient for a sequence of calls as explained in the next section.
+This code will get the correct character. However, it's not efficient since it starts at the beginning of the linked list for each call. You should be sure you understand how local variables `count` and `dex` are used in the code above before trying to make the code more efficient for a sequence of calls as explained in the next section.
 
 ##### Efficient Implementation of charAt
 You should create instance variables in the class `LinkStrand` so that after a call of `charAt(k)`, calling `charAt(k+1)` is an `O(1)` operation. 
@@ -466,7 +466,6 @@ To do this, you should appropriately update the following  instance variables: o
 
 - `myCurrent` is the node of the internal list referenced in the last call to `charAt`. In the example above the value of `myCurrent` would be the first node after the call `s.charAt(40)`, would be the second node after the call `s.charAt(70)` or `s.charAt(89)`, and would be the third node after the call `s.charAt(90)` since the first two nodes only contain a total of 90 characters, with indexes 0 to 89.
 
-In the `TestIterator` code you get with this assignment, there are correctness tests and performance tests for going forward in `O(N)` time as described here.
 
 ##### Why do we need charAt to be efficient?
 If the `charAt` method is not efficient, the loop below will be `O(N^2)` since the `charAt` method will be `O(k)` to access the kth character.
