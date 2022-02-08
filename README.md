@@ -284,7 +284,7 @@ In addition, you need to implement two constructors as described below. The cons
 
 You should test each method as you implement it using the `TestStrand` JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. It's unlikely that any tests will work until you've implemented `LinkStrand.toString()`.
 
-You should run the JUnit tests in both `TestStrand` and `TestIterator`. Verify that these work for `StringStrand` and `StringBuilderStrand` and then use these classes to test your `LinkStrand` implementation. 
+You should run the JUnit tests in `TestStrand`. Verify that these work for `StringStrand` and `StringBuilderStrand` and then use these classes to test your `LinkStrand` implementation. 
 
 
 #### 1. `LinkStrand` State, Constructors and `initialize` Method
