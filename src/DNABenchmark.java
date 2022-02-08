@@ -160,6 +160,8 @@ public class DNABenchmark {
 		System.out.printf("Class\t%23s\t%12s\ttime\t%s\n", "splicee", "recomb","appends");
 		System.out.println("-----");
 
+		// TODO: Change standardBenchmark() to newBenchmark
+		// depending on which you want to run
 		standardBenchmark();
 		System.exit(0);
 	}
