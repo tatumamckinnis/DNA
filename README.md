@@ -557,7 +557,7 @@ For all of the following questions, b is the number of breaks, or occurrences of
 Push your code to Git. Do this often. Once you have run and tested your completed program locally:
 
 1. Submit your code on gradescope to the autograder.
-2. Submit a PDF to Gradescope in the separate P3: Analysis assignment.
+2. Submit a PDF to Gradescope in the separate P3: Analysis assignment. Be sure to mark pages for the questions as explained in the [gradescope documentation here](https://help.gradescope.com/article/ccbpppziu9-student-submit-work#submitting_a_pdf).
 3. Complete the [reflect form linked here](TODO).
 
 If you worked with a partner, you and your partner will submit **together for the code and analysis** but **separately for the reflect.** Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
