@@ -546,7 +546,7 @@ For all of the following questions, b is the number of breaks, or occurrences of
 
 **Question 2:** Report your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation. Do the benchmark timings support the hypothesis that the runtime complexity of `cutAndSplice` when using `StringBuilderStrand` is O(bS)? Explain your answer. Be specific and refer to your data.
 
-**Question 3:** Based on the discussion of complexity in this writeup and the implementations of `cutAndSplice` and `LinkStrand`, what should the big O runtime complexity of `cutAndSplice` using `LinkStrand` be in terms of `b` and `S`? Explain your answer, referencing the implementation of `LinkStrand`.
+**Question 3:** Based on the discussion of complexity in this writeup and the implementations of `cutAndSplice` and `LinkStrand`, what should the big O runtime complexity of `cutAndSplice` using `LinkStrand` be in terms of b and S? Explain your answer, referencing the implementation of `LinkStrand`.
 
 **Question 4:** Report your `standardBenchmark` and `newBenchmark` results using the `LinkStrand` implementation. Do the benchmark timings support your hypothesis about the runtime complexity of `cutAndSplice` when using `LinkStrand` from the previous question? Explain your answer. Be specific and refer to your data.
 
