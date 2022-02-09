@@ -288,7 +288,7 @@ You should run the JUnit tests in `TestStrand`. Verify that these work for `Stri
 
 
 #### 1. `LinkStrand` State, Constructors and `initialize` Method
-Implement two constructors: one with no parameters (the default constructor) and one with a `String` parameter. The constructors work by calling the required initialize method, see `StringStrand` for an example. Implement the initialize method that initializes the `LinkStrand` object with a `String`.
+Implement two constructors: one with no parameters (the default constructor) and one with a `String` parameter. The constructors work by calling the required initialize method. Refer to `StringStrand.java` for an example to adapt. Implement the initialize method that initializes the `LinkStrand` object with a `String`.
 
 <details>
 <summary>Details on LinkStrand State, Constructors and initialize Method</summary>
