@@ -323,10 +323,14 @@ public class TestStrand {
 	 * Checks if index out of bounds exception error is thrown for charAt(-1) call
 	 * If you fail this type, make sure you're throwing an IndexOutOfBoundsException if
 	 * index is outside of the range of characters in LinkStrand.
+	 * Test will automatically pass if getNewStrand returns StringStrand, StringBuilderStrand resolving issue found 2/9/22
 	 */
 	@Test
 	public void testCharAtMinus1() {
 		IDnaStrand test = getNewStrand(strs[0]);
+		if (test instanceof StringStrand || test instanceof StringBuilderStrand){
+			return ;
+		}
 		try{
 			test.charAt(-1);
 		}
