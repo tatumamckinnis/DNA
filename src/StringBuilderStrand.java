@@ -60,8 +60,7 @@ public class StringBuilderStrand implements IDnaStrand {
 
 	/**
 	 * Simply append a strand of dna data to this strand. No error checking is
-	 * done. This method isn't efficient; it doesn't use a StringBuilder or a
-	 * StringBuffer.
+	 * done.
 	 * 
 	 * @param dna
 	 *            is the String appended to this strand
