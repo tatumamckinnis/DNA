@@ -1,4 +1,6 @@
-# Project 4: DNA LinkStrand
+# Project 3: DNA
+
+This is the directions document for Project 3 DNA in CompSci 201 at Duke University, Fall 2022. [This document details the workflow](hhttps://coursework.cs.duke.edu/cs-201-fall-22/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.
 
 ## Outline
 - [Background and Introduction](#project-background-and-introduction)
@@ -43,45 +45,6 @@ Here's a high-level view of the assignment if you would like a general roadmap. 
 3. In [Part 3](#part-3-more-benchmarking-and-analysis) You will again the benchmarking program `DNABenchmark` but now using the newly coded `LinkStrand` class - note the efficiency and memory of the program compared to when you ran the program with `StringStrand` and `StringBuilderStrand`. You will answer analysis questions about the runtime performance and memory use.
 
 </details>
-
-### Git and Partners, and Submitting for P4
-
-<details>
-<summary>Details on Standard Project Workflow</summary>
-You must have installed all software (Java, Git, VS Code) before you can complete the project.You can find the [directions for installation here](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/installingSoftware.md). We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](https://coursework.cs.duke.edu). All code for classwork will be kept here. Git is software used for version control, and GitLab is an online repository to store code in the cloud using Git.
-
-**[This document details the workflow](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully while working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained in Section 5.
-</details>
-
-For this project (P4 DNA LinkStrand), **you are allowed to work with a partner** (that is, in a group of two). If you are working with a partner, read the details in the expandable section below on how to collaborate using Git. 
-
-<details>
-<summary>Details on Git with a Partner for P4</summary>
-
-You may find it helpful to begin by reading the Working Together section of the [Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/tree/master/git) from the Duke Colab.
-
-One person should fork the starter code and then add their partner as a collaborator on the project. Choose Settings>Members>Invite Members. Then use the autocomplete feature to invite your partner to the project as a *maintainer*. Both of you can now clone and push to this project. See the [gitlab documentation here](https://docs.gitlab.com/ee/user/project/members/).
-
-Now you should be ready to clone the code to your local machines.
-
-1. Both students should clone the same repository and import it into VS Code just like previous projects.  
-2. After both students have cloned and imported, one person should create the `LinkStrand.java` class and add a comment to it with their name in a comment at the start of the file. Commit and push this change. 
-3. The other partner will then issue a git pull request. Simply use the command-line (in the same project directory where you cloned the starter code for the project) and type:
-```bash
-git pull
-```
-4. If the other partner now opens the project in VS Code again, they should see the modified `LinkStrand.java` file created by the first partner. 
-5. You can continue this workflow: Whenever one person finishes work on the project, they commit and push. Whenever anyone starts work on the project, they begin by downloading the current version from the shared online repository using a git pull command.
-
-This process works as long as only one person is editing at a time, and **you always pulls before editing** and **commit/push when finished**. If you forget to pull before editing your local code, you might end up working from an old version of the code different than what is in the shared online gitlab repository. If that happens, you may experience an error when you attempt to push your code back to the shared online repository. 
-
-There are many ways to resolve these conflicts. See the [working together Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/working_together.md) [branching and merging Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/branching_merging.md) from the Duke Colab for more information. You can also refer to our [Git troubleshooting document](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/troubleshooting.md#git-faq). 
-
-Additional resources: if you have any concerns about using Git with a partner, please consult the [Git troubleshooting guide](https://coursework.cs.duke.edu/cs201projects/resources-201/-/blob/main/gitTroubleshooting.md).
-
-</details>
-
-
 
 ## Part 1: Running DNABenchmark, Profiling, Analysis
 
@@ -137,6 +100,8 @@ By default, the `main` method of `DNABenchmark` uses the `standardBenchmark` met
 
 The `standardBenchmark` runs until memory is exhausted.  Example results are shown below from an instructor/TA laptop; your results will likely differ slightly and may run out of memory at a different point, but should show a similar overall trend. The benchmark code runs two experiments to average the results, so it will take longer than the reported averages.
 
+</details>
+
 <details>
 <summary>StringStrand standardBenchmark Example Results</summary>
 
@@ -170,30 +135,6 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 ```
 
 </details>
-
-<details>
-<summary>StringStrand newBenchmark Example Results</summary>
-
-```
-dna length = 4,639,221
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringStra:	          4,096	      7,277,271	0.647	1290
-StringStra:	          4,096	     14,554,542	2.757	2580
-StringStra:	          4,096	     21,831,813	6.293	3870
-StringStra:	          4,096	     29,109,084	11.742	5160
-StringStra:	          4,096	     36,386,355	18.227	6450
-StringStra:	          4,096	     43,663,626	26.720	7740
-StringStra:	          4,096	     50,940,897	39.016	9030
-StringStra:	          4,096	     58,218,168	46.087	10320
-StringStra:	          4,096	     65,495,439	58.608	11610
-StringStra:	          4,096	     72,772,710	77.266	12900
-```
-
-</details>
-
 
 <details>
 <summary>StringBuilderStrand standardBenchmark Example Results</summary>
@@ -231,6 +172,37 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 </details>
 
 <details>
+<summary>Details on benchmarking with newBenchmark</summary>
+
+The `main` method in `DNABenchmark` calls the method `standardBenchmark`. Replace that call with a call to the provided method `newBenchmark`. The method `newBenchmark` simulates a splicing experiment with a strand of DNA whose number of breaks (occurrences of restriction enzyme) increases linearly, **so that 10 runs are made and timed in a single run of `newBenchmark`**. In the method `standardBenchmark`, the size of the splicee changes. In this method the splicee-size is a constant, and the number of breaks changes. 
+
+Again run the `main` method of `DNABenchmark` twice using `newBenchmark`, once with `StringStrand` and once with `StringBuilderStrand` as before. Again make sure to save your results for answering analysis questions later.
+</details>
+
+<details>
+<summary>StringStrand newBenchmark Example Results</summary>
+
+```
+dna length = 4,639,221
+cutting at enzyme gaattc
+-----
+Class	                splicee	      recomb	time	appends
+-----
+StringStra:	          4,096	      7,277,271	0.647	1290
+StringStra:	          4,096	     14,554,542	2.757	2580
+StringStra:	          4,096	     21,831,813	6.293	3870
+StringStra:	          4,096	     29,109,084	11.742	5160
+StringStra:	          4,096	     36,386,355	18.227	6450
+StringStra:	          4,096	     43,663,626	26.720	7740
+StringStra:	          4,096	     50,940,897	39.016	9030
+StringStra:	          4,096	     58,218,168	46.087	10320
+StringStra:	          4,096	     65,495,439	58.608	11610
+StringStra:	          4,096	     72,772,710	77.266	12900
+```
+
+</details>
+
+<details>
 <summary>StringBuilderStrand newBenchmark Example Results</summary>
 
 ```
@@ -249,18 +221,8 @@ StringBuil:	          4,096	     58,218,168	0.102	10320
 StringBuil:	          4,096	     65,495,439	0.113	11610
 StringBuil:	          4,096	     72,772,710	0.141	12900
 ```
-
 </details>
 
-</details>
-
-<details>
-<summary>Details on benchmarking with newBenchmark</summary>
-
-The `main` method in `DNABenchmark` calls the method `standardBenchmark`. Replace that call with a call to the provided method `newBenchmark`. The method `newBenchmark` simulates a splicing experiment with a strand of DNA whose number of breaks (occurrences of restriction enzyme) increases linearly, **so that 10 runs are made and timed in a single run of `newBenchmark`**. In the method `standardBenchmark`, the size of the splicee changes. In this method the splicee-size is a constant, and the number of breaks changes. 
-
-Again run the `main` method of `DNABenchmark` twice using `newBenchmark`, once with `StringStrand` and once with `StringBuilderStrand` as before. Again make sure to save your results for answering analysis questions later.
-</details>
 
 ## Part 2: Programming LinkStrand
 
@@ -555,17 +517,15 @@ For all of the following questions, b is the number of breaks, or occurrences of
 
 ## Submitting, Reflect, and Grading 
 
-Push your code to Git. Do this often. Once you have run and tested your completed program locally:
+You will submit the assignment on Gradescope. You can access Gradescope through the tab on Sakai.Be sure your final program is in your Git repository before you submit it for autograding on Gradescope. Please take note that changes/commits on GitLab are NOT automatically synced to Gradescope. You are welcome to submit as many times as you like, only the most recent submission will count for a grade.
 
-1. Submit your code on gradescope to the autograder.
-2. Submit a PDF to Gradescope in the separate P3: Analysis assignment. Be sure to mark pages for the questions as explained in the [gradescope documentation here](https://help.gradescope.com/article/ccbpppziu9-student-submit-work#submitting_a_pdf).
-3. Complete the [reflect form linked here](https://forms.office.com/Pages/ResponsePage.aspx?id=TsVyyzFKnk2xSh6jbfrJTErNjWEU70pGg_ytfEVEPi5UMTFVWE5CTUJFSFpXWVdVUUdPRlhRQ1BZWS4u).
+Don't forget to upload a PDF for the analysis part of this assignment and mark where you answer each question. This is a separate submission in Gradescope.
 
-If you worked with a partner, you and your partner will submit **together for the code and analysis** but **separately for the reflect.** Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
+After submitting, fill out the [reflect form here](https://forms.office.com/Pages/ResponsePage.aspx?id=TsVyyzFKnk2xSh6jbfrJTErNjWEU70pGg_ytfEVEPi5URTZERDRJWEJFTk9LR1ZTUzIxUUgzREJRTS4u).
 
 For this project, the grading will be:
 
 | Points | Grading Criteria |
 | ------ | ------ |
 | 16 | Code for LinkStrand. Correctness, efficiency of `.charAt`, specification conformance. Autograded. |
-| 6 | Analysis and reflect. Teaching assistants will grade and comment on this.  |
+| 5 | Analysis. Teaching assistants will grade and comment on this.  |
