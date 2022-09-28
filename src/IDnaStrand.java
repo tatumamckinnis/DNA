@@ -4,13 +4,7 @@ import java.util.Iterator;
  * Interface for DNA/strand experiments
  * 
  * @author Owen Astrachan
- * @date February, 2008
- * @date October, 2011, removed cutWith and added reverse
- * @date October, 2016, removed methods that aren't used in assignment,
- * also added .charAt(int index) and .getInstance() 
- * @date October, 2017, added cutAndSplice here
- * @date October 2018, added codonProfile
- * @date 2020, removed codonProfile
+ * @author Brandon Fain
  */
 public interface IDnaStrand extends Iterable<Character>{
 	/**
@@ -24,33 +18,16 @@ public interface IDnaStrand extends Iterable<Character>{
 	 * @return the new strand leaving the original strand unchanged.
 	 */
 	default IDnaStrand cutAndSplice(String enzyme, String splicee) {
-		int pos = 0;
-		int start = 0;
 		String search = this.toString();
-		boolean first = true;
-		IDnaStrand ret = null;
+		IDnaStrand ret = getInstance("");
+		String[] fragments = search.split(enzyme);
 
-		while ((pos = search.indexOf(enzyme, start)) >= 0) {
-			if (first) {
-				ret = getInstance(search.substring(start, pos));
-				first = false;
-			} else {
-				ret.append(search.substring(start, pos));
-
-			}
-			start = pos + enzyme.length();
+		for (int i=0; i<fragments.length-1; i++) {
+			ret.append(fragments[i]);
 			ret.append(splicee);
 		}
-
-		if (start < search.length()) {
-			// NOTE: This is an important special case! If the enzyme
-			// is never found, return an empty String.
-			if (ret == null) {
-				ret = getInstance("");
-			} else {
-				ret.append(search.substring(start));
-			}
-		}
+		ret.append(fragments[fragments.length-1]); 
+		
 		return ret;
 	}
 
