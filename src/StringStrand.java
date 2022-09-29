@@ -1,14 +1,7 @@
-import java.util.Iterator;
-
 /**
  * Simple but somewhat efficient implementation of IDnaStrand. \ This
  * implementation uses StringBuilders to represent genomic/DNA data.
- * 
  * @author ola
- * @date January 2008, modified and commented September 2008
- * @date October 2011, made myInfo a StringBuilder rather than a String
- * @date October 2011, modified to add new methods and remove old ones
- * @date October 2016, modified for new version of IDnaStrand
  */
 
 public class StringStrand implements IDnaStrand {
