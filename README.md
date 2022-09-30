@@ -250,7 +250,17 @@ Implement `reverse` to return a new `LinkStrand` object that's the reverse of th
 
 This method creates a new `LinkStrand` object that is the reverse of the object on which it's called. The reverse of `"cgatccgg"` is `"ggcctagc"`. This method returns a new strand; **it does not alter the strand on which it's called**, i.e., it's not a mutator. 
 
-You should create a new linked list with nodes in reverse order, and each string in each node also reversed. Put differently: The reversed `LinkStrand` you return should have the same number of nodes as the original `LinkStrand`, but in reverse order; each internal node should also contain the reversed `String` of the corresponding node in the original `LinkStrand`.
+You should create a new linked list with nodes in reverse order, and each string in each node also reversed. Put differently: The reversed `LinkStrand` you return should have the same number of nodes as the original `LinkStrand`, but in reverse order; each internal node should also contain the reversed `String` of the corresponding node in the original `LinkStrand`. 
+
+For example, if the original `LinkStrand` looks like
+<div align="center">
+  <img src="figures/beforeReverse.png">
+</div>
+then the `LinkStrand` returned by `reverse` should look like the following:
+<div align="center">
+  <img src="figures/afterReverse.png">
+</div>
+with no changes to the original.
 
 The easiest way (and an efficient way) to reverse a `String` in Java is to use (`StringBuilder` and the `reverse` method)[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html#reverse()].
 
