@@ -271,11 +271,11 @@ Be sure to update all instance variables of the new reversed `LinkStrand` you ar
 
 </details>
 
-#### Implementing the `charAt` method
+#### Implementing the `charAt` Method
 Implement `charAt` which returns the character at a specific index. This method requires new instance variables *to meet performance characteristics.*
 
 <details>
-<summary>Details on Implementing the charAt method</summary>
+<summary>Details on Implementing the charAt Method</summary>
 
 This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the `index`-th character is found. Note that you will need to loop *both* through the nodes, *and* through the characters within each node. 
 
@@ -364,18 +364,22 @@ This diagram represents the final `LinkStrand` object after a cut-and-splice ope
 
 ### Analysis Questions
 
-Once you have completed benchmarking, answer the following analysis questions. **Include your answers in the PDF you submit to the analysis assignment for P4 in Gradescope.** The first two questions only use `StringStrand` and `StringBuilderStrand` as provided in the starter code, so you can answer these even if you are unable to complete the `LinkStrand` implementation.
+Once you have completed benchmarking, answer the following analysis questions. **Include your answers in the PDF you submit to the analysis assignment for Project 3 in Gradescope.** The first two questions only use `StringStrand` and `StringBuilderStrand` as provided in the starter code, so you can answer these even if you are unable to complete the `LinkStrand` implementation.
 
-For all of the following questions, b is the number of breaks, or occurrences of the restriction enzyme, and S is the length of the splicee replacing each restriction enzyme. b is half the number of calls to append (shown in the benchmark results) since each cut (except the first) is modeled by two calls of `append` in the method `cutAndSplice` -- see the code. S is shown directly in the splicee column of the benchmark results. Keep in mind that timings with larger values of b and S may be more reliable indicators of the asymptotic big O complexity of the code.
+The following questions refer to the parameters:
+- N: the size of the original dna strand,
+- b: the number of breaks / occurrences of the `enzyme`, and 
+- S: the size of the `splicee`.  
 
-**Question 1:** What is the asymptotic runtime complexity of `cutAndSplice` when using `StringStrand` in terms of b and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation.
+**Question 1:** What is the big O asymptotic runtime complexity of `cutAndSplice` when using `StringStrand`, in terms of N, b, and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your results from running `DNABenchmark`.
 
-**Question 2:** What is the asymptotic runtime complexity of `cutAndSplice` when using `StringBuilderStrand` in terms of b and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation
+**Question 2:** What is the big O asymptotic runtime complexity of `cutAndSplice` when using `StringBuilderStrand`, in terms of N, b, and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your results from running `DNABenchmark`.
 
-**Question 3:** What is the asymptotic runtime complexity of `cutAndSplice` when using `LinkStrand` in terms of b and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your `standardBenchmark` and `newBenchmark` results using the `StringStrand` implementation
+**Question 3:** If each character of a `String` takes about 1 byte of memory to store, about how much total memory is necessary to store the result of a `cutAndSplice` operation on a `StringStrand` object? Express your answer in terms of N, b, and S. Would the result take more or less memory if using a `StringBuilderStrand` object? Briefly explain.
 
-**Question 4:** The `standardBenchmark` runs until it runs out of memory. Which of the three implementations (`StringStrand`, `StringBuilderStrand`, or `LinkStrand`) was able to scale to the largest size splicee (the value of S) before running out of memory in the `standardBenchmark`? Explain why this class was more memory efficient, referencing the implementation. 
+**Question 4:** What is the big O asymptotic runtime complexity of `cutAndSplice` when using `LinkStrand` in terms of N, b, and S? Justify your answer in theory, referencing the implementation, and empirically, by reporting your results from running `DNABenchmark`.
 
+**Question 5:** If each character of a `String` takes about 1 byte of memory to store, about how much total memory is necessary to store the result of a `cutAndSplice` operation on a `LinkStrand` object? Express your answer in terms of N, b, and S. Briefly explain your answer, refereincing the implementation of `LinkStrand`. 
 
 ## Submitting, Reflect, and Grading 
 
@@ -390,4 +394,4 @@ For this project, the grading will be:
 | Points | Grading Criteria |
 | ------ | ------ |
 | 16 | Code for LinkStrand. Correctness, efficiency of `.charAt`, specification conformance. Autograded. |
-| 7 | Analysis. Teaching assistants will grade and comment on this.  |
+| 8 | Analysis. Teaching assistants will grade and comment on this.  |
