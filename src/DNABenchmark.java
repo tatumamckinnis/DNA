@@ -22,8 +22,8 @@ public class DNABenchmark {
 	// Benchmark parameters
 	private static final String ENZYME = "gaattc";		// enzyme to cut
 	private static final int DEFAULT_SPLICEE = 10000;	// default size of splicee
-	private static final int SPLICEE_ROWS = 6;			// rows of spliceeBenchmark data
-	private static final int SOURCE_ROWS = 4;			// rows of sourceBenchmark data
+	private static final int SPLICEE_ROWS = 8;			// rows of spliceeBenchmark data
+	private static final int SOURCE_ROWS = 5;			// rows of sourceBenchmark data
 	private static final int TRIALS = 10;				// number of trials per run
 	
 	private static String mySource;
