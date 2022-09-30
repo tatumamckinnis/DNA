@@ -262,7 +262,7 @@ then the `LinkStrand` returned by `reverse` should look like the following:
 </div>
 with no changes to the original.
 
-The easiest way (and an efficient way) to reverse a `String` in Java is to use (`StringBuilder` and the `reverse` method)[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html#reverse()].
+The easiest way (and an efficient way) to reverse a `String` in Java is to use [`StringBuilder` and the `reverse` method](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html#reverse()).
 
 Be sure to update all instance variables of the new reversed `LinkStrand` you are creating to be correct before it is returned.
 
