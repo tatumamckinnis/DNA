@@ -243,27 +243,18 @@ You should be able to test all the methods implemented to this point using the c
 </details>
 
 #### 5. Implementing the `reverse` Method
-Implement `reverse` to return a new `LinkStrand` object that's the reverse of the object on which it's called. *This method is not a mutator, it creates a new `LinkStrand`.*
+Implement `reverse` to return a new `LinkStrand` object that's the reverse of the object on which it's called. **This method is not a mutator, it creates a new `LinkStrand`.**
 
 <details>
 <summary>Details on Implementing the reverse Method</summary>
 
-This method creates a new `LinkStrand` object that is the reverse of the object on which it's called. The reverse of `"cgatccgg"` is `"ggcctagc"`. This method returns a new strand; it does not alter the strand on which it's called, i.e., it's not a mutator. 
+This method creates a new `LinkStrand` object that is the reverse of the object on which it's called. The reverse of `"cgatccgg"` is `"ggcctagc"`. This method returns a new strand; **it does not alter the strand on which it's called**, i.e., it's not a mutator. 
 
-Note: you must create `N` new nodes in reversing a `LinkStrand` object with `N` nodes. If you do not, you are likely mutating/changing the `LinkStrand` being reversed.
+You should create a new linked list with nodes in reverse order, and each string in each node also reversed. Put differently: The reversed `LinkStrand` you return should have the same number of nodes as the original `LinkStrand`, but in reverse order; each internal node should also contain the reversed `String` of the corresponding node in the original `LinkStrand`.
 
-You'll need to reverse the linked list, and reverse each string in each node of the linked list. Specifically, the reversed `LinkStrand` should have the same number of nodes as the original `LinkStrand`, but in reverse order; each internal node should also contain the reversed `String` of the corresponding node in the original `LinkStrand`.
+The easiest way (and an efficient way) to reverse a `String` in Java is to use (`StringBuilder` and the `reverse` method)[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html#reverse()].
 
-To reverse a `String` use a `StringBuilder` appropriately --- see `StringStrand.reverse` for details on using the `StringBuilder.reverse` method. 
-
-Note that in creating a new linked list that's the reverse of the list of nodes being traversed it's easiest to simply add a new node to the front of the reversed list being constructed. So in reversing a->b->c->d and traversing in order a,b,c,d; your code should have created the list c->b->a after traversing the first three nodes: a,b,c. When reaching the next or 'd' node your code adds 'd' to the front of this list creating d->c->b->a.
-
-To do so, we suggest making a helper method (for example, `private void addFirst(String s)` that will prepend a new node containing the reversed version of s to the front of the linked list, changing the value of `myFirst`. This method should create a new node whose next field points to `myFirst` and modifies `myFirst` to reference this newly created node. You will *not* call `addFirst` directly from the `reverse` method, but will call `rev.addFirst` as described below (if you choose to write `addFirst`).
-
-With this helper method, in writing `reverse` you might first create a new `LinkStrand` object storing a reference to the this new `LinkStrand` in a local variable, say `LinkStrand rev`.  Then as you traverse the linked-list being reversed, you'll make repeated calls of  `rev.addFirst(xx)` with the `xx` parameter being a String obtained by reversing the String in the node you're traversing, perhaps using a temporary `StringBuilder` object to easily reverse a String, e.g., using `StringBuilder.reverse`. 
-
-Remember that you must be sure to update all instance variables of the local `LinkStrand rev` if they're not changed by `addFirst`, e.g., 
-updating  `myFirst, myLast, mySize, myAppends, myIndex, myCurrent, myLocalIndex` for the local variable `rev` that will be returned, as well as the instance variable tracking the value of `rev.size`. This could be done automatically depending on your constructor implementation, but it may need to be done explicitly in the body of `reverse` depending on how you write your code.
+Be sure to update all instance variables of the new reversed `LinkStrand` you are creating to be correct before it is returned.
 
 </details>
 
