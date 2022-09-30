@@ -274,34 +274,9 @@ Implement `charAt` which returns the character at a specific index. This method 
 <details>
 <summary>Details on Implementing the charAt method</summary>
 
-This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the index-th character is found. 
+This method returns the character at the specified index if that's a valid index, and throws an `IndexOutOfBoundsException` otherwise. A naive implementation of this method would start at the beginning of the linked list, the node referenced by `myFirst` and count characters until the `index`-th character is found. Note that you will need to loop *both* through the nodes, *and* through the characters within each node. 
 
-For full credit you'll need to maintain state so that after a call of `charAt(k)` the call of `charAt(k+1)` is an $O(1)$ operation. This will make the loop below $O(N)$ for an `N` character strand.
-
-##### Basic, Correct but Inefficient Implementation of charAt
-First we'll show an inefficient implementation of the charAt method --- a method to find a character at a specific index in a linked list of strings. Your code will need to traverse the linked list counting characters. The code below illustrates how to do this. It doesn't check to see if parameter index is valid, but it passes the JUnit tests for correctness.
-
-```java
-public int charAt(int index) {
-     int count = 0;
-	int dex = 0;
-	Node list = myFirst;
-	while (count != index) {
-		count++;
-		dex++;
-		if (dex >= list.info.length()) {
-			dex = 0;
-			list = list.next;
-		}
-	}
-     return list.info.charAt(dex);
-}
-```
-
-This code will get the correct character. However, it's not efficient since it starts at the beginning of the linked list for each call. You should be sure you understand how local variables `count` and `dex` are used in the code above before trying to make the code more efficient for a sequence of calls as explained in the next section.
-
-##### Efficient Implementation of charAt
-You should create instance variables in the class `LinkStrand` so that after a call of `charAt(k)`, calling `charAt(k+1)` is an `O(1)` operation. 
+For full credit, your `charAt` method should be more efficient. Specifically, you should maintain *state* (in this case, storing information in instance variables) so that after a call of `charAt(k)` the call of `charAt(k+1)` is constant time operation.
 
 To do this, you should appropriately update the following  instance variables: one for the current node in a sequence of calls of charAt, one for the current index into that node, and one for the overall count; these are explained below. 
 
