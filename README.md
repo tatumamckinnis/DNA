@@ -330,9 +330,9 @@ However, *you'll need to write code to deal with calls that aren't "in order".* 
 
 ## Part 3: More Benchmarking and Analysis
 
-In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you benchmarked the `StringStrand` and `StringBuilderStrand` implementations of the `IDnaStrand` interface using the `standardBenchmark` and `newBenchmark` methods within the `main` method of `DNABenchmark`. Review the details there for how to run these benchmarks and what they mean.
+In [Part 1](#part-1-running-dnabenchmark-profiling-analysis) you benchmarked the complexity of the `cutAndSplice` method of the `IDnaStrand` interface using two implementations of that interface provided in the starter code: `StringStrand` and `StringBuilderStrand`. You did this using the main method of `DNABenchmark`. Review the details there for how to run these benchmarks and what they mean.
 
-Now that you have completed your implementation of `LinkStrand`, you will need to run the `main` method of `DNABenchmark` two additional times: once using `standardBenchmark` and once using `newBenchmark`. Again use the `ecoli.txt` file. Remember to save your results. Once you finish, you should have a total of 6 benchmark results: one for each combination of the implementations (`StringStrand`, `StringBuilderStrand`, and `LinkStrand`) and benchmarks (`standardBenchmark` and `newBenchmark`).
+Now that you have completed your implementation of `LinkStrand`, you should run the  `DNABenchmark` using the `LinkStrand` implementation of the `IDnaStrand` interface. Again use the `ecoli_small.txt` file. Remember to save your results. Once you finish, you should have a total of 3 benchmark results: one for each of the three implementations (`StringStrand`, `StringBuilderStrand`, and `LinkStrand`).
 
 Recall that `DNABenchmark` simulates a splicing experiment with DNA data. The complexity of the `StringStrand` and `StringBuilderStrand` implementations was discussed earlier in [Part 1](#part-1-running-dnabenchmark-profiling-analysis). Expand below for some discussion of the complexity using the `LinkStrand` implementation.
 
@@ -353,7 +353,7 @@ For this example, the `LinkStrand` result is diagrammed below.
   <img src="figures/link-cutsplice.png">
 </div>
 
-Each time the original strand, a single string, is cut/spliced a new node is created. The nodes pointing to the splicee can point to the same splicee as shown in the diagram for the second and fourth nodes. These represent the first and second occurrences of `"gat"`, respectively. Note that this means `LinkStrand` only creates a new String once when splicing.
+Each time the original strand, a single string, is cut/spliced a new node is created. The new nodes for the `splicee` can all have `String info` referencing the same `String` object in memory, as shown in the diagram for the second and fourth nodes. These represent the first and second occurrences of `"gat"`, respectively. Note that this means `LinkStrand` only needs to represent the `splicee` string once, however many times it is being spliced in / however many breaks there are.
 
 This diagram represents the final `LinkStrand` object after a cut-and-splice operation. That strand is created by the `default cutAndSplice` implementation that calls `toString`, `getInstance`, and `append` which in `LinkStrand` ultimately result in a sequence of nodes as shown here --- mostly because of how `append` works.
 
