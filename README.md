@@ -155,7 +155,7 @@ Implement two constructors: one with no parameters (the default constructor) and
 <details>
 <summary>Details on LinkStrand State, Constructors and initialize Method</summary>
 
-You should start by defining a `private` inner class (that is, defined inside of the `LinkStrand` class) that defines a node in the `LinkStrand`. Each such node should store at least a `String` (referred to as `info` in this writeup) and a reference to the next node in the list. You will also need to define a constructor for your inner class.
+You should start by defining a `private` inner `Node` class (that is, defined inside of the `LinkStrand` class) that defines a node in the `LinkStrand`. Each such node should store at least a `String` (referred to as `info` in this writeup) and a reference to the next node in the list. You will also need to define a constructor for your inner class.
 
 After you have defined your node class, you should use the following instance variables definitions for the `ListStrand` class.
 
@@ -192,16 +192,9 @@ The `initialize` method will maintain the class invariants when it's called. The
 </details>
 
 #### 2. Implementing the `getInstance` and `size` Methods
-Implement the `getInstance` method that works similarly to what you see in `StringStrand` and `StringBuilder` strand. This must return a `LinkStrand` object. Implement `size`. This should be a single line and must run in `O(1)` time.
+Implement the `getInstance` method that works similarly to what you see in `StringStrand` and `StringBuilder` strand. This must return a `LinkStrand` object. 
 
-<details>
-<summary>Details on Implementing the getInstance and size Methods</summary>
-
-The `getInstance` method works similarly to what you see in `StringStrand` and `StringBuilder` strand. This must return a `LinkStrand` object. 
-
-The `size` method returns the total number of string characters in the `LinkStrand`. 
-
-</details>
+Implement `size`. This should be a single line getter method and must run in `O(1)` time.
 
 #### 3. Implementing the `append` and `getAppendCount` Methods 
 Implement `append` which creates one new node and updates instance variables to maintain class invariants as described in the details below. Implement `getAppendCount`. This should be a single line and must run in `O(1)` time.
