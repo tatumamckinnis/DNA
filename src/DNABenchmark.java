@@ -48,7 +48,6 @@ public class DNABenchmark {
 	 * @throws Exception
 	 */
 	public static void sourceBenchmark() throws Exception {
-		//printHeader();
 		String splicee = mySource.substring(0, DEFAULT_SPLICEE);
 		strandSpliceBenchmark(ENZYME, splicee, strandType);
 		for(int j=0; j<SOURCE_ROWS; j++) {
@@ -66,7 +65,6 @@ public class DNABenchmark {
 	 * @throws Exception
 	 */
 	public static void spliceeBenchmark() throws Exception {
-		//printHeader();
 		String splicee = mySource.substring(0, DEFAULT_SPLICEE);
 		for (int j=0; j<SPLICEE_ROWS; j++) {
 			String results = strandSpliceBenchmark(ENZYME, splicee, strandType);
