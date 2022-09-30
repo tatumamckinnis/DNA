@@ -36,7 +36,7 @@ Two relatively straightforward implementations of the `IDnaStrand` interface are
 
 ## Part 1: Running DNABenchmark, Profiling, Analysis
 
-You can do this Part 1 without writing any linked list code. We strongly suggest you do this before starting on Part 2 of the assignment where you will program a linked list.
+You can do this Part 1 without writing any linked list code. We encourage you do this before starting on Part 2 of the assignment where you will program a linked list.
 
 ### `cutAndSplice` Simulation Complexity with `StringStrand` an `StringBuilderStrand`
 
@@ -51,154 +51,83 @@ The method `cutAndSplice` is not a mutator. It starts with a strand of DNA and c
 dna.cutAndSplice("gat", "gggtttaaa")
 ```
 
-would result in returning a new strand of DNA in which each occurrence of the enzyme/strand `"gat"` in the object `dna` is replaced by the splice, `"gggtttaaa"` -- as shown in the diagram below where the original strand is shown first, with the enzyme `"gat"` shaded in blue. A new strand of DNA is created and returned in which each occurrence of the enzyme `"gat"` is replaced by the splicee `"gggtttaaa"` as shown below. This diagram illustrates how `cutAndSplice` works with both `StringStrand` and `StringBuilderStrand`. Each is a strand of 14 characters in which the restriction enzyme `"gat"` occurs twice, is replaced by `"gggtttaaa"`, resulting in creating and returning a new strand that contains 26 characters.
+would result in returning a new strand of DNA in which each occurrence of `"gat"` in `dna` is replaced by `"gggtttaaa"` -- as shown in the diagram below where the original strand is shown first, with the enzyme `"gat"` shaded in blue and the splicee `"gggtttaaa"` shaded in green. 
 
 <div align="center">
   <img src="figures/splice.png">
 </div>
 
-If the original strand has length N, then the new strand has N + b(S-E) characters where b is the number of breaks, or occurrences of the enzyme, S is the length of the splicee and E is the length of the enzyme. In the diagram above we have 14 + 2(9-3) which is 26. If we assume the splicee is large, as it will be when benchmarking, we can ignore E and this becomes N + bS. 
+The diagram illustrates how `cutAndSplice` works with both `StringStrand` and `StringBuilderStrand`. Each is a strand of 14 characters in which the restriction enzyme `"gat"` occurs twice, is replaced by `"gggtttaaa"`, resulting in creating and returning a new strand that contains 26 characters.
 
-The runtime complexity for `cutAndSplice` for `StringStrand` and `StringBuilderStrand` will depend on how long it takes to concatenate/append two character-sequences for the different implementations, which must be done `b` times in total. 
+Note that if the original strand has size N, then the new strand has size N + b(S-E) where b is the number of breaks, or occurrences of the enzyme, S is the length of the splicee and E is the length of the enzyme. If we assume the splicee is large, as it will be when benchmarking, we can ignore E and this becomes approximately N + bS, the size of the recombinant new strand in terms. 
+
+The runtime and memory complexity for `cutAndSplice` can be expressed as a function of N, b, and S. The complexity also depends on the implementation used for the `IDnaStrand` interface. Of particular importance for the runtime complexity is the efficiency of the `append` method, which you will note is called repeatedly by `cutAndSplice`. For the memory complexity, the question is how the implementation represents the resulting recombinant Strand.
 
 </details>
 
 ### Benchmarking `StringStrand` and `StringBuilderStrand`
 
-You'll need to run the `main` method of the `DNABenchmark` four times in total, once for each implementation of the `IDnaStrand` interface you're given in the starter code: `StringStrand` and `StringBuilderStrand`, and once using each of the two provided benchmarking methods `standardBenchmark` and `newBenchmark`. Running the program will open a graphical file selector interface: Select the `ecoli.txt` file inside of the `data` folder. Make sure to save your results for answering analysis questions later.
+You'll need to run the `main` method of the `DNABenchmark` twice, once for the `StringStrand` implementation of the `IDnaStrand` interface and once for the `StringBuilderStrand` implementation. By default, the program will benchmark the runtime of `cutAndSplice` on the `ecoli_small.txt` dataset. Make sure to save your results for answering analysis questions later.
 
-You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file; you can change which benchmark to run by changing the method called in the `main` method. Note that the **`StringStrand` class will take a very, very, very long time (several minutes) to run!** If you wish, you can terminate those runs early (after you have several rows of results) by pressing the red stop square in VS Code. Expand below for the details and example output. 
+You select which implementation to use changing the value of the static instance variable `strandType` at the top of the class file. Note that the `StringStrand` class may take several seconds to run on `ecoli_small.txt`. `StringBuilderStrand` can scale to `ecoli.txt`, but you may not want to run `StringStrand` on the larger data set as it may take several minutes to run.
 
-<details>
-<summary>Details on Benchmarking with standardBenchmark</summary>
+The main method benchmarks the average time (over several trials)  in milliseconds that it takes to run `cutAndSplice` for different values of N (the size of the original dna strand), b (the number of breaks / occurrences of the `enzyme`), and S (the size of the `splicee`). It also shows the size of the resulting recombininant new Strand, labeled as `recomb`, which is roughly equal to N + bS. 
 
-By default, the `main` method of `DNABenchmark` uses the `standardBenchmark` method, also provided in `DNABenchmark`. The method simulates a DNA splicing experiment with a DNA strand with a constant number `b` of breaks (occurrences of restriction enzymes) but with an increasingly larger `splicee` (the DNA sequence copied at each restriction enzyme). 
-
-The `standardBenchmark` runs until memory is exhausted.  Example results are shown below from an instructor/TA laptop; your results will likely differ slightly and may run out of memory at a different point, but should show a similar overall trend. The benchmark code runs two experiments to average the results, so it will take longer than the reported averages.
-
-</details>
+First it performs several runs increasing S while holding the other values constant. Then it performs several runs increasing N and b while holding S constant. Example runs from an instructor's computer on `ecoli_small.txt` are shown below (note that your timings may differ but should show similar trends).
 
 <details>
-<summary>StringStrand standardBenchmark Example Results</summary>
+<summary>StringStrand DNABenchmark Example Results</summary>
 
 ```
-dna length = 4,639,221
+dna length = 320,160
 cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringStra:	            256	      4,800,471	0.429	1290
-StringStra:	            512	      4,965,591	0.446	1290
-StringStra:	          1,024	      5,295,831	0.481	1290
-StringStra:	          2,048	      5,956,311	0.535	1290
-StringStra:	          4,096	      7,277,271	0.659	1290
-StringStra:	          8,192	      9,919,191	1.080	1290
-StringStra:	         16,384	     15,203,031	1.603	1290
-StringStra:	         32,768	     25,770,711	2.636	1290
-StringStra:	         65,536	     46,906,071	4.707	1290
-StringStra:	        131,072	     89,176,791	9.468	1290
-StringStra:	        262,144	    173,718,231	17.172	1290
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-	at java.base/java.util.Arrays.copyOf(Arrays.java:3537)
-	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228)
-	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582)
-	at java.base/java.lang.StringBuilder.append(StringBuilder.java:175)
-	at StringStrand.append(StringStrand.java:70)
-	at IDnaStrand.cutAndSplice(IDnaStrand.java:38)
-	at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:72)
-	at DNABenchmark.standardBenchmark(DNABenchmark.java:116)
-	at DNABenchmark.main(DNABenchmark.java:163)
+----------------------------------------------------------------------
+Class             dna,N   splicee,S        recomb  time(ms)  breaks,b
+----------------------------------------------------------------------
+StringStra:     320,160      10,000       769,890        13        45
+StringStra:     320,160      20,000     1,219,890        13        45
+StringStra:     320,160      40,000     2,119,890        14        45
+StringStra:     320,160      80,000     3,919,890        26        45
+StringStra:     320,160     160,000     7,519,890        49        45
+StringStra:     320,160     320,000    14,719,890       105        45
+StringStra:     320,160     640,000    29,119,890       239        45
+StringStra:     320,160   1,280,000    57,919,890       481        45
+StringStra:     320,160      10,000       769,890         6        45
+StringStra:     640,320      10,000     1,539,780        21        90
+StringStra:   1,280,640      10,000     3,079,560        84       180
+StringStra:   2,561,280      10,000     6,159,120       322       360
+StringStra:   5,122,560      10,000    12,318,240     1,449       720
 ```
 
 </details>
 
 <details>
-<summary>StringBuilderStrand standardBenchmark Example Results</summary>
+<summary>StringBuilderStrand DNABenchmark Example Results</summary>
 
 ```
-dna length = 4,639,221
+dna length = 320,160
 cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringBuil:	            256	      4,800,471	0.016	1290
-StringBuil:	            512	      4,965,591	0.015	1290
-StringBuil:	          1,024	      5,295,831	0.013	1290
-StringBuil:	          2,048	      5,956,311	0.013	1290
-StringBuil:	          4,096	      7,277,271	0.012	1290
-StringBuil:	          8,192	      9,919,191	0.013	1290
-StringBuil:	         16,384	     15,203,031	0.014	1290
-StringBuil:	         32,768	     25,770,711	0.017	1290
-StringBuil:	         65,536	     46,906,071	0.023	1290
-StringBuil:	        131,072	     89,176,791	0.040	1290
-StringBuil:	        262,144	    173,718,231	0.067	1290
-StringBuil:	        524,288	    342,801,111	0.173	1290
-Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
-	at java.base/java.util.Arrays.copyOf(Arrays.java:3537)
-	at java.base/java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:228)
-	at java.base/java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:582)
-	at java.base/java.lang.StringBuilder.append(StringBuilder.java:175)
-	at StringBuilderStrand.append(StringBuilderStrand.java:70)
-	at IDnaStrand.cutAndSplice(IDnaStrand.java:42)
-	at DNABenchmark.strandSpliceBenchmark(DNABenchmark.java:72)
-	at DNABenchmark.standardBenchmark(DNABenchmark.java:116)
-	at DNABenchmark.main(DNABenchmark.java:163)
+----------------------------------------------------------------------
+Class             dna,N   splicee,S        recomb  time(ms)  breaks,b
+----------------------------------------------------------------------
+StringBuil:     320,160      10,000       769,890         1        45
+StringBuil:     320,160      20,000     1,219,890         1        45
+StringBuil:     320,160      40,000     2,119,890         1        45
+StringBuil:     320,160      80,000     3,919,890         1        45
+StringBuil:     320,160     160,000     7,519,890         2        45
+StringBuil:     320,160     320,000    14,719,890         3        45
+StringBuil:     320,160     640,000    29,119,890         6        45
+StringBuil:     320,160   1,280,000    57,919,890         8        45
+StringBuil:     320,160      10,000       769,890         1        45
+StringBuil:     640,320      10,000     1,539,780         1        90
+StringBuil:   1,280,640      10,000     3,079,560         3       180
+StringBuil:   2,561,280      10,000     6,159,120         7       360
+StringBuil:   5,122,560      10,000    12,318,240        15       720
 ```
 
 </details>
 
-<details>
-<summary>Details on benchmarking with newBenchmark</summary>
-
-The `main` method in `DNABenchmark` calls the method `standardBenchmark`. Replace that call with a call to the provided method `newBenchmark`. The method `newBenchmark` simulates a splicing experiment with a strand of DNA whose number of breaks (occurrences of restriction enzyme) increases linearly, **so that 10 runs are made and timed in a single run of `newBenchmark`**. In the method `standardBenchmark`, the size of the splicee changes. In this method the splicee-size is a constant, and the number of breaks changes. 
-
-Again run the `main` method of `DNABenchmark` twice using `newBenchmark`, once with `StringStrand` and once with `StringBuilderStrand` as before. Again make sure to save your results for answering analysis questions later.
-</details>
-
-<details>
-<summary>StringStrand newBenchmark Example Results</summary>
-
-```
-dna length = 4,639,221
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringStra:	          4,096	      7,277,271	0.647	1290
-StringStra:	          4,096	     14,554,542	2.757	2580
-StringStra:	          4,096	     21,831,813	6.293	3870
-StringStra:	          4,096	     29,109,084	11.742	5160
-StringStra:	          4,096	     36,386,355	18.227	6450
-StringStra:	          4,096	     43,663,626	26.720	7740
-StringStra:	          4,096	     50,940,897	39.016	9030
-StringStra:	          4,096	     58,218,168	46.087	10320
-StringStra:	          4,096	     65,495,439	58.608	11610
-StringStra:	          4,096	     72,772,710	77.266	12900
-```
-
-</details>
-
-<details>
-<summary>StringBuilderStrand newBenchmark Example Results</summary>
-
-```
-cutting at enzyme gaattc
------
-Class	                splicee	      recomb	time	appends
------
-StringBuil:	          4,096	      7,277,271	0.017	1290
-StringBuil:	          4,096	     14,554,542	0.032	2580
-StringBuil:	          4,096	     21,831,813	0.040	3870
-StringBuil:	          4,096	     29,109,084	0.052	5160
-StringBuil:	          4,096	     36,386,355	0.079	6450
-StringBuil:	          4,096	     43,663,626	0.077	7740
-StringBuil:	          4,096	     50,940,897	0.092	9030
-StringBuil:	          4,096	     58,218,168	0.102	10320
-StringBuil:	          4,096	     65,495,439	0.113	11610
-StringBuil:	          4,096	     72,772,710	0.141	12900
-```
-</details>
-
+You should run `DNABenchmark` yourself on `ecoli_small.txt` to generate similar data on `cutAndSplice` using both `StringStrand` and `StringBuilderStrand`. Save your results for answering the Analysis questions.
 
 ## Part 2: Programming LinkStrand
 
