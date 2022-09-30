@@ -364,7 +364,7 @@ This diagram represents the final `LinkStrand` object after a cut-and-splice ope
 
 ### Analysis Questions
 
-Once you have completed benchmarking, answer the following analysis questions. **Include your answers in the PDF you submit to the analysis assignment for Project 3 in Gradescope.** The first two questions only use `StringStrand` and `StringBuilderStrand` as provided in the starter code, so you can answer these even if you are unable to complete the `LinkStrand` implementation.
+Once you have completed benchmarking, answer the following analysis questions. **Include your answers in the PDF you submit to the analysis assignment for Project 3 in Gradescope.** You can and should complete most of these questions even if you are unable to complete the code for the `LinkStrand` class.
 
 The following questions refer to the parameters:
 - N: the size of the original dna strand,
