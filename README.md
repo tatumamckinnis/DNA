@@ -227,7 +227,7 @@ public class LinkStrand implements IDnaStrand
 VS Code will then indicate that the code will not compile. If you select the light bulb / suggestion button as indicated in the figure below, it should give you as the first suggestion to "add unimplemented methods." This will automatically generate method stubs for all of the methods in the `IDnaStrand` interface that any implementing class must provide.
 
 <div align="center">
-  <img src="p4-figures/vscode_stubs.png" width="300", height="150">
+  <img src="figures/vscode_stubs.png" width="300", height="150">
 </div>
  
 In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
@@ -278,7 +278,7 @@ The following instance variables will be updated in `charAt()`:
 Initially, when the `LinkStrand("cgatt...")` constructor is called  (though the `String` parameter can be any string) there will be a single `Node` in the linked list that represents the DNA strand `"cgatt…"`. (The only way to have more than one node in a `LinkStrand` internal linked-list is by calling `.append`.)
 
 <div align="center">
-  <img src="p4-figures/initialize.png">
+  <img src="figures/initialize.png">
 </div>
 
 As described above, you'll create two constructors. The string constructor should consist of one call to initialize which establishes the class invariant with a single node representing the entire strand of DNA as illustrated. The no-argument constructor, also called the default constructor, should have one line: `this("")` which calls the other constructor with a String parameter of `""`. 
@@ -312,7 +312,7 @@ LinkStrand dna = new LinkStrand("cgatt");
 dna.append("aattcc");
 ```
 <div align="center">
-  <img src="p4-figures/append.png">
+  <img src="figures/append.png">
 </div>
 
 The internal linked list maintained by `LinkStrand` after the first call is diagrammed above. After the call to append we have the following picture:
@@ -411,7 +411,7 @@ To do this, you should appropriately update the following  instance variables: o
 - `myLocalIndex` is the value of the index within the string stored in the node last-referenced by `charAt` when the method finishes. For example, suppose a strand consists of three nodes: the first has 60 characters; followed by a node of 30 characters; followed by a node of 40 characters. The call `s.charAt(40)` will mean that `myIndex` is 40 and `myLocalIndex` is also 40 since that's the index within the first node of the list, where the character whose index is 40 is found.  Suppose this is followed by `s.charAt(70).` The character at index 60 of the entire strand will be the character with index zero of the second node -- since the first node holds characters with indexes 0-59 since its info field is a string of 60 characters. The character at index 70 of the entire strand will be the character with index 10 of the second node. This means that after the call `charAt(70)` the value of `myIndex` will be 70, the value of `myLocalIndex` will be 10, and the value of `myCurrent` (see just below) is a pointer to the second node of a three-node list.
 
 <div align="center">
-  <img src="p4-figures/charAt.png">
+  <img src="figures/charAt.png">
 </div>
 
 - `myCurrent` is the node of the internal list referenced in the last call to `charAt`. In the example above the value of `myCurrent` would be the first node after the call `s.charAt(40)`, would be the second node after the call `s.charAt(70)` or `s.charAt(89)`, and would be the third node after the call `s.charAt(90)` since the first two nodes only contain a total of 90 characters, with indexes 0 to 89.
@@ -477,7 +477,7 @@ would result in returning a new strand of DNA in which each occurrence of the en
 For this example, the `LinkStrand` result is diagrammed below.
 
 <div align="center">
-  <img src="p4-figures/link-cutsplice.png">
+  <img src="figures/link-cutsplice.png">
 </div>
 
 Each time the original strand, a single string, is cut/spliced a new node is created. The nodes pointing to the splicee can point to the same splicee as shown in the diagram for the second and fourth nodes. These represent the first and second occurrences of `"gat"`, respectively. Note that this means `LinkStrand` only creates a new String once when splicing.
