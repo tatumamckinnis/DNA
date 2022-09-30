@@ -127,8 +127,6 @@ StringBuil:   5,122,560      10,000    12,318,240        15       720
 
 </details>
 
-You should run `DNABenchmark` yourself on `ecoli_small.txt` to generate similar data on `cutAndSplice` using both `StringStrand` and `StringBuilderStrand`. Save your results for answering the Analysis questions.
-
 ## Part 2: Programming LinkStrand
 
 This section details how to implement the `LinkStrand` class.
@@ -141,18 +139,15 @@ You will create a new class named `LinkStrand` from scratch. Start by creating a
 public class LinkStrand implements IDnaStrand
 ```
 
-VS Code will then indicate that the code will not compile. If you select the light bulb / suggestion button as indicated in the figure below, it should give you as the first suggestion to "add unimplemented methods." This will automatically generate method stubs for all of the methods in the `IDnaStrand` interface that any implementing class must provide.
+VS Code will then indicate that the code will not compile. If you select the light bulb / suggestion button as indicated in the figure below, it should give you as the first suggestion to "add unimplemented methods." This will automatically generate method stubs for all of the methods in the `IDnaStrand` interface that any implementing class must provide. Of course, you can also add these method stubs yourself manually.
 
 <div align="center">
   <img src="figures/vscode_stubs.png" width="300", height="150">
 </div>
  
-In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class. In descriptions below `N` is the number of nucleotides/basepairs/characters in a strand.
+In addition, you need to implement two constructors as described below. The constructors and methods don't need to be implemented in the order shown, but the simpler methods are listed first. These methods are tested in the `TestStrand` class.
 
 You should test each method as you implement it using the `TestStrand` JUnit test class. You'll need to change the type of strand returned in that JUnit class method `getNewStrand` to test your class. It's unlikely that any tests will work until you've implemented `LinkStrand.toString()`.
-
-You should run the JUnit tests in `TestStrand`. Verify that these work for `StringStrand` and `StringBuilderStrand` and then use these classes to test your `LinkStrand` implementation. 
-
 
 #### 1. `LinkStrand` State, Constructors and `initialize` Method
 Implement two constructors: one with no parameters (the default constructor) and one with a `String` parameter. The constructors work by calling the required initialize method. Refer to `StringStrand.java` for an example to adapt. Implement the initialize method that initializes the `LinkStrand` object with a `String`.
@@ -160,19 +155,11 @@ Implement two constructors: one with no parameters (the default constructor) and
 <details>
 <summary>Details on LinkStrand State, Constructors and initialize Method</summary>
 
-You should start with the following definitions for a private inner class and instance variables to use a linked-list internally as part of the LinkStrand class. Note that all are private.
+You should start by defining a `private` inner class (that is, defined inside of the `LinkStrand` class) that defines a node in the `LinkStrand`. Each such node should store at least a `String` (referred to as `info` in this writeup) and a reference to the next node in the list. You will also need to define a constructor for your inner class.
+
+After you have defined your node class, you should use the following instance variables definitions for the `ListStrand` class.
 
 ```java
-private class Node {
-     String info;
-     Node next;
-
-     public Node(String s, Node n) {
-          info = s;
-          next = n;
-     }
-}
-
 private Node myFirst, myLast;
 private long mySize;
 private int myAppends;
@@ -192,7 +179,7 @@ The following instance variables will be updated in `charAt()`:
 2. `myCurrent` tracks the last node holding the character at position `myIndex`. Initialize this as `myFirst`.
 3. `myLocalIndex` tracks the last character we accessed within the `Node`. Initialize `this` as `0`.
 
-Initially, when the `LinkStrand("cgatt...")` constructor is called  (though the `String` parameter can be any string) there will be a single `Node` in the linked list that represents the DNA strand `"cgatt…"`. (The only way to have more than one node in a `LinkStrand` internal linked-list is by calling `.append`.)
+Initially, when the `LinkStrand("cgatt...")` constructor is called  (though the `String` parameter can be any string) there will be a single node in the linked list that represents the DNA strand `"cgatt…"`. (The only way to have more than one node in a `LinkStrand` internal linked-list is by calling `.append`.)
 
 <div align="center">
   <img src="figures/initialize.png">
