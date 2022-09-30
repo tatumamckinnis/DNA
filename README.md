@@ -254,11 +254,11 @@ You should create a new linked list with nodes in reverse order, and each string
 
 For example, if the original `LinkStrand` looks like
 <div align="center">
-  <img width = 300 src="figures/beforeReverse.png">
+  <img width=300 src="figures/beforeReverse.png">
 </div>
 then the `LinkStrand` returned by `reverse` should look like the following:
 <div align="center">
-  <img width = 300 src="figures/afterReverse.png">
+  <img width=300 src="figures/afterReverse.png">
 </div>
 with no changes to the original.
 
