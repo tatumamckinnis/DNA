@@ -234,7 +234,7 @@ Implement `toString`. This returns the `String` representation of the `LinkStran
 
 The `toString` method returns the `String` representation of the entire DNA strand. Conceptually this is a concatenation of the `String` stored in each node.
 
-This method should use a standard `while` loop to visit each node in the internal linked list. The method creates and updates a single `StringBuilder` object by appending each `node.info` field to a `StringBuilder` object that's initially empty. The final return from `LinkStrand.toString` will simply be returning the result of calling `.toString()` on the `StringBuilder` object. See the `DNABenchmark.dnaFromScanner` implementation for guidance on the `StringBuilder` strand class.
+This method should use a standard `while` loop to visit each node in the internal linked list. The method creates and updates a single `StringBuilder` object by appending each `node.info` field to a `StringBuilder` object that's initially empty. The final return from `LinkStrand.toString` will simply be returning the result of calling `.toString()` on the `StringBuilder` object.
 
 For more guidance on `StringBuilder`, see the [Java Documentation here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html). 
 
