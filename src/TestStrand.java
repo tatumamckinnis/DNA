@@ -10,13 +10,14 @@ import java.util.Random;
  * To use a different implementation alter the method <code>getNewStrand</code>
  * since that method is called by all JUnit tests to create the IDnaStrand
  * objects being tested.
- * 
+ *
  * @author ola
  * @date January 2008, modified and commented in September 2008
  * @date January 2009, added splice testing
  * @date October 2015, added nodeList
  * @date October 2016, updated for iterator and no "" strings
  * @date September 2020, updated by Charles Lyu
+ * @date October 2022, updated by Emily Du and Havish Malladi
  */
 
 public class TestStrand {
@@ -25,14 +26,14 @@ public class TestStrand {
 
 	/**
 	 * Return a strand to test by other JUnit tests
-	 * 
+	 *
 	 * @param s
 	 *            is the string modeled by an IDnaStrand implementation
 	 * @return an IDnaStrand object for testing in this JUnit testing class.
 	 */
 	public IDnaStrand getNewStrand(String s) {
 		return new StringStrand(s);
-		//return new LinkStrand(s);
+//		return new LinkStrand(s);
 		//return new StringBuilderStrand(s);
 	}
 
@@ -60,7 +61,7 @@ public class TestStrand {
 		for(int k=0; k < NUM_NODES; k++){
 			ourStrand.append("cgat");
 		}
-		
+
 		for(int k=0; k < 30; k++) {
 			int index = rand.nextInt((int)ourStrand.size());
 			char ch = ourStrand.charAt(index);
@@ -225,12 +226,12 @@ public class TestStrand {
 					"This test checks if append works correctly for "
 							+ "simple cases. Your code did not give the correct toString() after "
 							+ "appending " + app + " to " + s
-					);
+			);
 			assertEquals(s.length() + app.length(), strand.size(),
 					"This test checks if append works correctly for "
 							+ "simple cases. Your code did not give the correct size() after "
 							+ "appending " + app + " to " + s
-					);
+			);
 		}
 	}
 
@@ -261,39 +262,45 @@ public class TestStrand {
 		}
 	}
 
-	/**
-	 * This test checks if cutAndSplice works correctly for simple cases
-	 */
-	/*@Test
-	public void testSplice() {
-		String r = "gat";
-		String sp = "xxyyzz";
-		String[] strands = { "ttgatcc", "tcgatgatgattc", 
-				             "tcgatctgatttccgatcc", "gat",
-				             "gatctgatctgat", "gtacc",
-				             "gatgatgat" };
-		String[] recombs = { "ttxxyyzzcc", "tcxxyyzzxxyyzzxxyyzztc", 
-				             "tcxxyyzzctxxyyzzttccxxyyzzcc", "xxyyzz",
-				             "xxyyzzctxxyyzzctxxyyzz", "","xxyyzzxxyyzzxxyyzz" };
 
-		for (int k = 0; k < strands.length; k++) {
-			IDnaStrand str = getNewStrand(strands[k]);
-			String bef = str.toString();
+	/** This test checks if .addToFront() works correctly in cases of multiple calls*/
+	@Test
+	public void testAddToFront() {
+		String a = "cccaaatttgggaaattt";
+		String b = "catcatcat";
+		String c = "tttaaaccc";
+
+		for (String s : strs) {
 			final IDnaStrand strand = assertTimeout(Duration.ofMillis(10000),()->{
-				IDnaStrand rec = str.cutAndSplice(r, sp);
-				return rec;
+				IDnaStrand str = getNewStrand(s);
+				if (str instanceof LinkStrand) {
+					((LinkStrand) str).addToFront(a);
+					((LinkStrand) str).addToFront(b);
+					((LinkStrand) str).addToFront(c);
+					return str;
+				} else {
+					return null;
+				}
 			});
-			assertEquals(recombs[k], strand.toString(),
-					"This test checks if cutAndSplice works correctly for "
-							+ "simple cases. The test case failed on was splicing " + sp + " into " + strands[k]
-					);
-			assertEquals(bef, str.toString(),
-					"This test checks if cutAndSplice works correctly for "
-							+ "simple cases. The test case failed on was splicing " + sp + " into " + strands[k]
-					);
+			assertNotNull(strand, "This test checks if you commented out getNewStrand()'s"
+					+ "StringStrand initialization and commented in its LinkStrand initialization."
+					+ "You did not do so and this test cannot be correctly run"
+			);
+			assertEquals(c + b + a + s, strand.toString(),
+					"This test checks if addToFront works correctly when called multiple "
+							+ "times. Your code did not give the correct toString() after appending "
+							+ c + ", " + b + ", " + a + " to " + s
+			);
+			assertEquals(c.length() + b.length() + a.length() + s.length(), strand.size(),
+					"This test checks if append works correctly when called multiple "
+							+ "times. Your code did not give the correct size() after appending "
+							+ c + ", " + b + ", " + a + " to " + s
+			);
 		}
-	}*/
-	
+
+	}
+
+
 	/**
 	 *	Checks if iterator methods are implemented correctly
 	 */
@@ -309,12 +316,12 @@ public class TestStrand {
 		for (int i = 0; i < all.length(); i++) {
 			final int index = i;
 			Assertions.assertAll("iterator output",
-			()->assertTrue(itc.hasNext(),"hasNext() returned false when it should be true, when iterating through" +
-					" index "+index+" of "+all.length() + ". This is typically due to errors with myIndex."),
-			()->assertEquals(all.charAt(index), itc.next(),
-					"charAt(" + index + ") does not match the expected character"));
+					()->assertTrue(itc.hasNext(),"hasNext() returned false when it should be true, when iterating through" +
+							" index "+index+" of "+all.length() + ". This is typically due to errors with myIndex."),
+					()->assertEquals(all.charAt(index), itc.next(),
+							"charAt(" + index + ") does not match the expected character"));
 		}
-		
+
 		assertFalse(itc.hasNext(),"hasNext() returned true when it should be false, after iterating " +
 				"through the entire strand. This is typically due to errors with myIndex.");
 	}
@@ -339,6 +346,4 @@ public class TestStrand {
 			assertTrue(e instanceof IndexOutOfBoundsException && !(e instanceof StringIndexOutOfBoundsException));
 		}
 	}
-
-
 }
