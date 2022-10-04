@@ -15,35 +15,19 @@ public interface IDnaStrand extends Iterable<Character>{
 	 * @return the new strand leaving the original strand unchanged.
 	 */
 	default IDnaStrand cutAndSplice(String enzyme, String splicee) {
-		int pos = 0;
-		int start = 0;
 		String search = this.toString();
-		boolean first = true;
-		IDnaStrand ret = null;
-
-		while ((pos = search.indexOf(enzyme, start)) >= 0) {
-			if (first) {
-				ret = getInstance(search.substring(start, pos));
-				first = false;
-			} else {
-				ret.append(search.substring(start, pos));
-
-			}
-			start = pos + enzyme.length();
+		IDnaStrand ret = getInstance("");
+		String[] fragments = search.split(enzyme);
+		if (fragments.length == 0) {    // case where enzyme equals strand
+			ret.append(splicee);
+			return ret;
+		}
+		for (int i=0; i<fragments.length-1; i++) {    // splicing in
+			ret.append(fragments[i]);
 			ret.append(splicee);
 		}
-
-		if (start < search.length()) {
-			// NOTE: This is an important special case! If the enzyme
-			// is never found, return an empty String.
-			if (ret == null) {
-				ret = getInstance(search);
-			} else {
-				ret.append(search.substring(start));
-			}
-		}
+		ret.append(fragments[fragments.length-1]);    // adding last fragment
 		return ret;
-
 	}
 
 	/**
