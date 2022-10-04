@@ -262,8 +262,9 @@ public class TestStrand {
 		}
 	}
 
-
+	
 	/** This test checks if .addToFront() works correctly in cases of multiple calls*/
+	/* TEST DEPRECATED
 	@Test
 	public void testAddToFront() {
 		String a = "cccaaatttgggaaattt";
@@ -297,8 +298,8 @@ public class TestStrand {
 							+ c + ", " + b + ", " + a + " to " + s
 			);
 		}
-
 	}
+	*/
 
 
 	/**
