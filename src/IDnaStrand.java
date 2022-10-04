@@ -37,7 +37,7 @@ public interface IDnaStrand extends Iterable<Character>{
 			// NOTE: This is an important special case! If the enzyme
 			// is never found, return an empty String.
 			if (ret == null) {
-				ret = getInstance("");
+				ret = getInstance(search);
 			} else {
 				ret.append(search.substring(start));
 			}
