@@ -17,11 +17,9 @@ public interface IDnaStrand extends Iterable<Character>{
 	default IDnaStrand cutAndSplice(String enzyme, String splicee) {
 		String search = this.toString();
 		IDnaStrand ret = getInstance("");
-		String[] fragments = search.split(enzyme);
-		if (fragments.length == 0) {    // case where enzyme equals strand
-			ret.append(splicee);
-			return ret;
-		}
+		// Splits dna strand by enzyme, leaving empty strings
+		// in case of leading, repeating, or trailing enzymes
+		String[] fragments = search.split(enzyme+"{1}", -1);
 		for (int i=0; i<fragments.length-1; i++) {    // splicing in
 			ret.append(fragments[i]);
 			ret.append(splicee);
