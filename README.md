@@ -7,7 +7,7 @@ This is the directions document for Project 3 DNA in CompSci 201 at Duke Univers
 - [Part 1: Running DNABenchmark, Profiling, Analysis](#part-1-running-dnabenchmark-profiling-analysis)
 - [Part 2: Programming](#part-2-programming-linkstrand)
 - [Part 3: More Benchmarking and Analysis](#part-3-more-benchmarking-and-analysis)
-- [Submitting, Reflect, and Grading](#submitting-reflect-and-grading)
+- [Submitting and Grading](#submitting-and-grading)
 
 ## Project Background and Introduction
 
@@ -381,7 +381,7 @@ The following questions refer to the parameters:
 
 **Question 5:** If each character of a `String` takes 1 byte of memory to store, and each reference to a node takes 8 bytes of memory to store, about about how much total memory is necessary to store the result of a `cutAndSplice` operation on a `LinkStrand` object? Express your answer in terms of N, b, and S. Briefly explain your answer, refereincing the implementation of `LinkStrand`. 
 
-## Submitting, Reflect, and Grading 
+## Submitting and Grading 
 
 You will submit the assignment on Gradescope. You can access Gradescope through the tab on Sakai. Please take note that changes/commits on GitLab are NOT automatically synced to Gradescope. You are welcome to submit as many times as you like, only the most recent submission will count for a grade.
 
