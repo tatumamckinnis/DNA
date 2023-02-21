@@ -386,10 +386,3 @@ The following questions refer to the parameters:
 You will submit the assignment on Gradescope. You can access Gradescope through the tab on Sakai. Please take note that changes/commits on GitLab are NOT automatically synced to Gradescope. You are welcome to submit as many times as you like, only the most recent submission will count for a grade.
 
 Don't forget to upload a PDF for the analysis part of this assignment and mark where you answer each question. This is a separate submission in Gradescope.
-
-For this project, the grading will be:
-
-| Points | Grading Criteria |
-| ------ | ------ |
-| 16 | Code for LinkStrand. Correctness, efficiency of `.charAt`, specification conformance. Autograded. |
-| 8 | Analysis. Teaching assistants will grade and comment on this.  |
