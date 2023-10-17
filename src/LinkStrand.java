@@ -54,7 +54,7 @@ initialize (s);
     myLast.next = add;
     myLast = add;
     mySize = mySize + dna.length();
-    myAppends = myAppends + 0;
+    myAppends = myAppends + 1;
     myLast.next = null; 
     return this;
 }
