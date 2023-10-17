@@ -78,10 +78,10 @@ initialize (s);
             StringBuilder temp = new StringBuilder (newHead.info); 
             StringBuilder revTemp = temp.reverse();
             strand.append(revTemp.toString()); 
-            myRevAppends ++;
+           // myRevAppends ++;
             newHead = newHead.next;
         }
-        myAppends = myAppends - myRevAppends;
+       // myAppends = myAppends - myRevAppends;
         return strand;
     }
 
