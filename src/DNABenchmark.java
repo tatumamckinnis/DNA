@@ -15,7 +15,7 @@ public class DNABenchmark {
 	
 	// Select/uncomment which implementation you want to benchmark
 	private static final String strandType = "StringStrand";
-	//private static final String strandType = "StringBuilderStrand";
+//private static final String strandType = "StringBuilderStrand";
 	//private static final String strandType = "LinkStrand";
 	
 	
